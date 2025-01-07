@@ -1,0 +1,222 @@
+[
+  {
+    "rank": 1,
+    "team": "Liverpool",
+    "points": 46,
+    "wins": 14,
+    "draws": 4,
+    "losses": 1,
+    "goals_for": 47,
+    "goals_against": 19,
+    "goal_diff": 28
+  },
+  {
+    "rank": 2,
+    "team": "Arsenal",
+    "points": 40,
+    "wins": 11,
+    "draws": 7,
+    "losses": 2,
+    "goals_for": 39,
+    "goals_against": 18,
+    "goal_diff": 21
+  },
+  {
+    "rank": 3,
+    "team": "Nott'ham Forest",
+    "points": 40,
+    "wins": 12,
+    "draws": 4,
+    "losses": 4,
+    "goals_for": 29,
+    "goals_against": 19,
+    "goal_diff": 10
+  },
+  {
+    "rank": 4,
+    "team": "Chelsea",
+    "points": 36,
+    "wins": 10,
+    "draws": 6,
+    "losses": 4,
+    "goals_for": 39,
+    "goals_against": 24,
+    "goal_diff": 15
+  },
+  {
+    "rank": 5,
+    "team": "Newcastle Utd",
+    "points": 35,
+    "wins": 10,
+    "draws": 5,
+    "losses": 5,
+    "goals_for": 34,
+    "goals_against": 22,
+    "goal_diff": 12
+  },
+  {
+    "rank": 6,
+    "team": "Manchester City",
+    "points": 34,
+    "wins": 10,
+    "draws": 4,
+    "losses": 6,
+    "goals_for": 36,
+    "goals_against": 27,
+    "goal_diff": 9
+  },
+  {
+    "rank": 7,
+    "team": "Bournemouth",
+    "points": 33,
+    "wins": 9,
+    "draws": 6,
+    "losses": 5,
+    "goals_for": 30,
+    "goals_against": 23,
+    "goal_diff": 7
+  },
+  {
+    "rank": 8,
+    "team": "Aston Villa",
+    "points": 32,
+    "wins": 9,
+    "draws": 5,
+    "losses": 6,
+    "goals_for": 30,
+    "goals_against": 32,
+    "goal_diff": -2
+  },
+  {
+    "rank": 9,
+    "team": "Fulham",
+    "points": 30,
+    "wins": 7,
+    "draws": 9,
+    "losses": 4,
+    "goals_for": 30,
+    "goals_against": 27,
+    "goal_diff": 3
+  },
+  {
+    "rank": 10,
+    "team": "Brighton",
+    "points": 28,
+    "wins": 6,
+    "draws": 10,
+    "losses": 4,
+    "goals_for": 30,
+    "goals_against": 29,
+    "goal_diff": 1
+  },
+  {
+    "rank": 11,
+    "team": "Brentford",
+    "points": 27,
+    "wins": 8,
+    "draws": 3,
+    "losses": 9,
+    "goals_for": 38,
+    "goals_against": 35,
+    "goal_diff": 3
+  },
+  {
+    "rank": 12,
+    "team": "Tottenham",
+    "points": 24,
+    "wins": 7,
+    "draws": 3,
+    "losses": 10,
+    "goals_for": 42,
+    "goals_against": 30,
+    "goal_diff": 12
+  },
+  {
+    "rank": 13,
+    "team": "Manchester Utd",
+    "points": 23,
+    "wins": 6,
+    "draws": 5,
+    "losses": 9,
+    "goals_for": 23,
+    "goals_against": 28,
+    "goal_diff": -5
+  },
+  {
+    "rank": 14,
+    "team": "West Ham",
+    "points": 23,
+    "wins": 6,
+    "draws": 5,
+    "losses": 9,
+    "goals_for": 24,
+    "goals_against": 39,
+    "goal_diff": -15
+  },
+  {
+    "rank": 15,
+    "team": "Crystal Palace",
+    "points": 21,
+    "wins": 4,
+    "draws": 9,
+    "losses": 7,
+    "goals_for": 21,
+    "goals_against": 28,
+    "goal_diff": -7
+  },
+  {
+    "rank": 16,
+    "team": "Everton",
+    "points": 17,
+    "wins": 3,
+    "draws": 8,
+    "losses": 8,
+    "goals_for": 15,
+    "goals_against": 25,
+    "goal_diff": -10
+  },
+  {
+    "rank": 17,
+    "team": "Wolves",
+    "points": 16,
+    "wins": 4,
+    "draws": 4,
+    "losses": 12,
+    "goals_for": 31,
+    "goals_against": 45,
+    "goal_diff": -14
+  },
+  {
+    "rank": 18,
+    "team": "Ipswich Town",
+    "points": 16,
+    "wins": 3,
+    "draws": 7,
+    "losses": 10,
+    "goals_for": 20,
+    "goals_against": 35,
+    "goal_diff": -15
+  },
+  {
+    "rank": 19,
+    "team": "Leicester City",
+    "points": 14,
+    "wins": 3,
+    "draws": 5,
+    "losses": 12,
+    "goals_for": 23,
+    "goals_against": 44,
+    "goal_diff": -21
+  },
+  {
+    "rank": 20,
+    "team": "Southampton",
+    "points": 6,
+    "wins": 1,
+    "draws": 3,
+    "losses": 16,
+    "goals_for": 12,
+    "goals_against": 44,
+    "goal_diff": -32
+  }
+]

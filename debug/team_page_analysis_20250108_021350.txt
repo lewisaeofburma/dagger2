@@ -1,0 +1,1128 @@
+URL: https://fbref.com/en/squads/822bd0ba/Liverpool-Stats
+Timestamp: 20250108_021350
+
+=== TABLE IDs ===
+
+Table 1. ID: No ID
+
+Sample data from first row:
+
+Table 2. ID: No ID
+
+Sample data from first row:
+
+Table 3. ID: No ID
+
+Sample data from first row:
+
+Table 4. ID: No ID
+
+Sample data from first row:
+
+Table 5. ID: No ID
+
+Sample data from first row:
+
+Table 6. ID: No ID
+
+Sample data from first row:
+
+Table 7. ID: No ID
+
+Sample data from first row:
+
+Table 8. ID: No ID
+
+Sample data from first row:
+
+Table 9. ID: No ID
+
+Sample data from first row:
+
+Table 10. ID: stats_standard_9
+Data attributes in headers:
+  - header_playing
+  - header_performance
+  - header_expected
+  - header_progression
+  - header_per90
+  - player
+  - nationality
+  - position
+  - age
+  - games
+  - games_starts
+  - minutes
+  - minutes_90s
+  - goals
+  - assists
+  - goals_assists
+  - goals_pens
+  - pens_made
+  - pens_att
+  - cards_yellow
+  - cards_red
+  - xg
+  - npxg
+  - xg_assist
+  - npxg_xg_assist
+  - progressive_carries
+  - progressive_passes
+  - progressive_passes_received
+  - goals_per90
+  - assists_per90
+  - goals_assists_per90
+  - goals_pens_per90
+  - goals_assists_pens_per90
+  - xg_per90
+  - xg_assist_per90
+  - xg_xg_assist_per90
+  - npxg_per90
+  - npxg_xg_assist_per90
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  games: 19
+  games_starts: 19
+  minutes: 1,710
+  minutes_90s: 19.0
+  goals: 1
+  assists: 1
+  goals_assists: 2
+  goals_pens: 1
+  pens_made: 0
+  pens_att: 0
+  cards_yellow: 1
+  cards_red: 0
+  xg: 1.3
+  npxg: 1.3
+  xg_assist: 0.3
+  npxg_xg_assist: 1.6
+  progressive_carries: 4
+  progressive_passes: 70
+  progressive_passes_received: 4
+  goals_per90: 0.05
+  assists_per90: 0.05
+  goals_assists_per90: 0.11
+  goals_pens_per90: 0.05
+  goals_assists_pens_per90: 0.11
+  xg_per90: 0.07
+  xg_assist_per90: 0.02
+  xg_xg_assist_per90: 0.08
+  npxg_per90: 0.07
+  npxg_xg_assist_per90: 0.08
+  matches: Matches
+
+Table 11. ID: matchlogs_for
+Data attributes in headers:
+  - date
+  - start_time
+  - comp
+  - round
+  - dayofweek
+  - venue
+  - result
+  - goals_for
+  - goals_against
+  - opponent
+  - xg_for
+  - xg_against
+  - possession
+  - attendance
+  - captain
+  - formation
+  - opp_formation
+  - referee
+  - match_report
+  - notes
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+  - date
+
+Sample data from first row:
+  date: 2024-08-17
+  start_time: 12:30 (18:00)
+  comp: Premier League
+  round: Matchweek 1
+  dayofweek: Sat
+  venue: Away
+  result: W
+  goals_for: 2
+  goals_against: 0
+  opponent: Ipswich Town
+  xg_for: 2.6
+  xg_against: 0.5
+  possession: 62
+  attendance: 30,014
+  captain: Virgil van Dijk
+  formation: 4-2-3-1
+  opp_formation: 4-2-3-1
+  referee: Tim Robinson
+  match_report: Match Report
+
+Table 12. ID: stats_keeper_9
+Data attributes in headers:
+  - header_playing
+  - header_performance
+  - header_pk
+  - player
+  - nationality
+  - position
+  - age
+  - gk_games
+  - gk_games_starts
+  - gk_minutes
+  - minutes_90s
+  - gk_goals_against
+  - gk_goals_against_per90
+  - gk_shots_on_target_against
+  - gk_saves
+  - gk_save_pct
+  - gk_wins
+  - gk_ties
+  - gk_losses
+  - gk_clean_sheets
+  - gk_clean_sheets_pct
+  - gk_pens_att
+  - gk_pens_allowed
+  - gk_pens_saved
+  - gk_pens_missed
+  - gk_pens_save_pct
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Alisson
+  nationality: br BRA
+  position: GK
+  age: 32-097
+  gk_games: 11
+  gk_games_starts: 11
+  gk_minutes: 978
+  minutes_90s: 10.9
+  gk_goals_against: 10
+  gk_goals_against_per90: 0.92
+  gk_shots_on_target_against: 30
+  gk_saves: 20
+  gk_save_pct: 66.7
+  gk_wins: 8
+  gk_ties: 2
+  gk_losses: 1
+  gk_clean_sheets: 4
+  gk_clean_sheets_pct: 36.4
+  gk_pens_att: 0
+  gk_pens_allowed: 0
+  gk_pens_saved: 0
+  gk_pens_missed: 0
+  matches: Matches
+
+Table 13. ID: stats_keeper_adv_9
+Data attributes in headers:
+  - header_goals
+  - header_expected
+  - header_passes_launched
+  - header_passes
+  - header_goal_kicks
+  - header_crosses_gk
+  - header_sweeper
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - gk_goals_against
+  - gk_pens_allowed
+  - gk_free_kick_goals_against
+  - gk_corner_kick_goals_against
+  - gk_own_goals_against
+  - gk_psxg
+  - gk_psnpxg_per_shot_on_target_against
+  - gk_psxg_net
+  - gk_psxg_net_per90
+  - gk_passes_completed_launched
+  - gk_passes_launched
+  - gk_passes_pct_launched
+  - gk_passes
+  - gk_passes_throws
+  - gk_pct_passes_launched
+  - gk_passes_length_avg
+  - gk_goal_kicks
+  - gk_pct_goal_kicks_launched
+  - gk_goal_kick_length_avg
+  - gk_crosses
+  - gk_crosses_stopped
+  - gk_crosses_stopped_pct
+  - gk_def_actions_outside_pen_area
+  - gk_def_actions_outside_pen_area_per90
+  - gk_avg_distance_def_actions
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Alisson
+  nationality: br BRA
+  position: GK
+  age: 32-097
+  minutes_90s: 10.9
+  gk_goals_against: 10
+  gk_pens_allowed: 0
+  gk_free_kick_goals_against: 0
+  gk_corner_kick_goals_against: 0
+  gk_own_goals_against: 0
+  gk_psxg: 9.5
+  gk_psnpxg_per_shot_on_target_against: 0.32
+  gk_psxg_net: -0.5
+  gk_psxg_net_per90: -0.04
+  gk_passes_completed_launched: 19
+  gk_passes_launched: 62
+  gk_passes_pct_launched: 30.6
+  gk_passes: 314
+  gk_passes_throws: 41
+  gk_pct_passes_launched: 18.2
+  gk_passes_length_avg: 24.8
+  gk_goal_kicks: 29
+  gk_pct_goal_kicks_launched: 17.2
+  gk_goal_kick_length_avg: 23.6
+  gk_crosses: 97
+  gk_crosses_stopped: 4
+  gk_crosses_stopped_pct: 4.1
+  gk_def_actions_outside_pen_area: 21
+  gk_def_actions_outside_pen_area_per90: 1.93
+  gk_avg_distance_def_actions: 15.8
+  matches: Matches
+
+Table 14. ID: stats_shooting_9
+Data attributes in headers:
+  - header_standard
+  - header_expected
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - goals
+  - shots
+  - shots_on_target
+  - shots_on_target_pct
+  - shots_per90
+  - shots_on_target_per90
+  - goals_per_shot
+  - goals_per_shot_on_target
+  - average_shot_distance
+  - shots_free_kicks
+  - pens_made
+  - pens_att
+  - xg
+  - npxg
+  - npxg_per_shot
+  - xg_net
+  - npxg_net
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  goals: 1
+  shots: 14
+  shots_on_target: 5
+  shots_on_target_pct: 35.7
+  shots_per90: 0.74
+  shots_on_target_per90: 0.26
+  goals_per_shot: 0.07
+  goals_per_shot_on_target: 0.20
+  average_shot_distance: 13.3
+  shots_free_kicks: 1
+  pens_made: 0
+  pens_att: 0
+  xg: 1.3
+  npxg: 1.3
+  npxg_per_shot: 0.09
+  xg_net: -0.3
+  npxg_net: -0.3
+  matches: Matches
+
+Table 15. ID: stats_passing_9
+Data attributes in headers:
+  - header_passes_total
+  - header_passes_short
+  - header_passes_medium
+  - header_passes_long
+  - header_expected
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - passes_completed
+  - passes
+  - passes_pct
+  - passes_total_distance
+  - passes_progressive_distance
+  - passes_completed_short
+  - passes_short
+  - passes_pct_short
+  - passes_completed_medium
+  - passes_medium
+  - passes_pct_medium
+  - passes_completed_long
+  - passes_long
+  - passes_pct_long
+  - assists
+  - xg_assist
+  - pass_xa
+  - xg_assist_net
+  - assisted_shots
+  - passes_into_final_third
+  - passes_into_penalty_area
+  - crosses_into_penalty_area
+  - progressive_passes
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  passes_completed: 1342
+  passes: 1465
+  passes_pct: 91.6
+  passes_total_distance: 23549
+  passes_progressive_distance: 9774
+  passes_completed_short: 600
+  passes_short: 621
+  passes_pct_short: 96.6
+  passes_completed_medium: 639
+  passes_medium: 669
+  passes_pct_medium: 95.5
+  passes_completed_long: 90
+  passes_long: 145
+  passes_pct_long: 62.1
+  assists: 1
+  xg_assist: 0.3
+  pass_xa: 0.4
+  xg_assist_net: +0.7
+  assisted_shots: 6
+  passes_into_final_third: 107
+  passes_into_penalty_area: 3
+  crosses_into_penalty_area: 0
+  progressive_passes: 70
+  matches: Matches
+
+Table 16. ID: stats_passing_types_9
+Data attributes in headers:
+  - header_pass_types
+  - header_corner_kicks
+  - header_pass_outcomes
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - passes
+  - passes_live
+  - passes_dead
+  - passes_free_kicks
+  - through_balls
+  - passes_switches
+  - crosses
+  - throw_ins
+  - corner_kicks
+  - corner_kicks_in
+  - corner_kicks_out
+  - corner_kicks_straight
+  - passes_completed
+  - passes_offsides
+  - passes_blocked
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  passes: 1465
+  passes_live: 1358
+  passes_dead: 106
+  passes_free_kicks: 35
+  through_balls: 0
+  passes_switches: 12
+  crosses: 0
+  throw_ins: 4
+  corner_kicks: 0
+  corner_kicks_in: 0
+  corner_kicks_out: 0
+  corner_kicks_straight: 0
+  passes_completed: 1342
+  passes_offsides: 1
+  passes_blocked: 4
+  matches: Matches
+
+Table 17. ID: stats_gca_9
+Data attributes in headers:
+  - header_sca
+  - header_sca_types
+  - header_gca
+  - header_gca_types
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - sca
+  - sca_per90
+  - sca_passes_live
+  - sca_passes_dead
+  - sca_take_ons
+  - sca_shots
+  - sca_fouled
+  - sca_defense
+  - gca
+  - gca_per90
+  - gca_passes_live
+  - gca_passes_dead
+  - gca_take_ons
+  - gca_shots
+  - gca_fouled
+  - gca_defense
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  sca: 20
+  sca_per90: 1.05
+  sca_passes_live: 15
+  sca_passes_dead: 0
+  sca_take_ons: 1
+  sca_shots: 1
+  sca_fouled: 1
+  sca_defense: 2
+  gca: 3
+  gca_per90: 0.16
+  gca_passes_live: 3
+  gca_passes_dead: 0
+  gca_take_ons: 0
+  gca_shots: 0
+  gca_fouled: 0
+  gca_defense: 0
+  matches: Matches
+
+Table 18. ID: stats_defense_9
+Data attributes in headers:
+  - header_tackles
+  - header_challenges
+  - header_blocks
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - tackles
+  - tackles_won
+  - tackles_def_3rd
+  - tackles_mid_3rd
+  - tackles_att_3rd
+  - challenge_tackles
+  - challenges
+  - challenge_tackles_pct
+  - challenges_lost
+  - blocks
+  - blocked_shots
+  - blocked_passes
+  - interceptions
+  - tackles_interceptions
+  - clearances
+  - errors
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  tackles: 22
+  tackles_won: 11
+  tackles_def_3rd: 10
+  tackles_mid_3rd: 10
+  tackles_att_3rd: 2
+  challenge_tackles: 8
+  challenges: 13
+  challenge_tackles_pct: 61.5
+  challenges_lost: 5
+  blocks: 15
+  blocked_shots: 6
+  blocked_passes: 9
+  interceptions: 34
+  tackles_interceptions: 56
+  clearances: 81
+  errors: 2
+  matches: Matches
+
+Table 19. ID: stats_possession_9
+Data attributes in headers:
+  - header_touches
+  - header_take_ons
+  - header_carries
+  - header_receiving
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - touches
+  - touches_def_pen_area
+  - touches_def_3rd
+  - touches_mid_3rd
+  - touches_att_3rd
+  - touches_att_pen_area
+  - touches_live_ball
+  - take_ons
+  - take_ons_won
+  - take_ons_won_pct
+  - take_ons_tackled
+  - take_ons_tackled_pct
+  - carries
+  - carries_distance
+  - carries_progressive_distance
+  - progressive_carries
+  - carries_into_final_third
+  - carries_into_penalty_area
+  - miscontrols
+  - dispossessed
+  - passes_received
+  - progressive_passes_received
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  touches: 1644
+  touches_def_pen_area: 235
+  touches_def_3rd: 707
+  touches_mid_3rd: 881
+  touches_att_3rd: 62
+  touches_att_pen_area: 26
+  touches_live_ball: 1644
+  take_ons: 4
+  take_ons_won: 3
+  take_ons_won_pct: 75.0
+  take_ons_tackled: 1
+  take_ons_tackled_pct: 25.0
+  carries: 931
+  carries_distance: 4068
+  carries_progressive_distance: 2036
+  progressive_carries: 4
+  carries_into_final_third: 7
+  carries_into_penalty_area: 1
+  miscontrols: 3
+  dispossessed: 2
+  passes_received: 1146
+  progressive_passes_received: 4
+  matches: Matches
+
+Table 20. ID: stats_playing_time_9
+Data attributes in headers:
+  - header_playing
+  - header_starts
+  - header_subs
+  - header_team_success
+  - header_xg_team_success
+  - player
+  - nationality
+  - position
+  - age
+  - games
+  - minutes
+  - minutes_per_game
+  - minutes_pct
+  - minutes_90s
+  - games_starts
+  - minutes_per_start
+  - games_complete
+  - games_subs
+  - minutes_per_sub
+  - unused_subs
+  - points_per_game
+  - on_goals_for
+  - on_goals_against
+  - plus_minus
+  - plus_minus_per90
+  - plus_minus_wowy
+  - on_xg_for
+  - on_xg_against
+  - xg_plus_minus
+  - xg_plus_minus_per90
+  - xg_plus_minus_wowy
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  games: 19
+  minutes: 1,710
+  minutes_per_game: 90
+  minutes_pct: 100.0
+  minutes_90s: 19.0
+  games_starts: 19
+  minutes_per_start: 90
+  games_complete: 19
+  games_subs: 0
+  unused_subs: 0
+  points_per_game: 2.42
+  on_goals_for: 47
+  on_goals_against: 19
+  plus_minus: +28
+  plus_minus_per90: +1.47
+  on_xg_for: 44.1
+  on_xg_against: 17.7
+  xg_plus_minus: +26.3
+  xg_plus_minus_per90: +1.39
+  matches: Matches
+
+Table 21. ID: stats_misc_9
+Data attributes in headers:
+  - header_performance
+  - header_aerials
+  - player
+  - nationality
+  - position
+  - age
+  - minutes_90s
+  - cards_yellow
+  - cards_red
+  - cards_yellow_red
+  - fouls
+  - fouled
+  - offsides
+  - crosses
+  - interceptions
+  - tackles_won
+  - pens_won
+  - pens_conceded
+  - own_goals
+  - ball_recoveries
+  - aerials_won
+  - aerials_lost
+  - aerials_won_pct
+  - matches
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+  - player
+
+Sample data from first row:
+  player: Virgil van Dijk
+  nationality: nl NED
+  position: DF
+  age: 33-183
+  minutes_90s: 19.0
+  cards_yellow: 1
+  cards_red: 0
+  cards_yellow_red: 0
+  fouls: 8
+  fouled: 5
+  offsides: 0
+  crosses: 0
+  interceptions: 34
+  tackles_won: 11
+  pens_won: 0
+  pens_conceded: 0
+  own_goals: 0
+  ball_recoveries: 62
+  aerials_won: 56
+  aerials_lost: 21
+  aerials_won_pct: 72.7
+  matches: Matches
+
+Table 22. ID: results2024-202591_overall
+Data attributes in headers:
+  - rank
+  - team
+  - games
+  - wins
+  - ties
+  - losses
+  - goals_for
+  - goals_against
+  - goal_diff
+  - points
+  - points_avg
+  - xg_for
+  - xg_against
+  - xg_diff
+  - xg_diff_per90
+  - last_5
+  - attendance_per_g
+  - top_team_scorers
+  - top_keeper
+  - notes
+  - rank
+  - rank
+  - rank
+
+Sample data from first row:
+  rank: 1
+  team: Liverpool
+  games: 19
+  wins: 14
+  ties: 4
+  losses: 1
+  goals_for: 47
+  goals_against: 19
+  goal_diff: +28
+  points: 46
+  points_avg: 2.42
+  xg_for: 44.1
+  xg_against: 17.7
+  xg_diff: +26.3
+  xg_diff_per90: +1.39
+  last_5: D W W W D
+  attendance_per_g: 60,277
+  top_team_scorers: Mohamed Salah - 18
+  top_keeper: Alisson
+
+Table 23. ID: results2024-202591_home_away
+Data attributes in headers:
+  - header_home
+  - header_away
+  - rank
+  - team
+  - home_games
+  - home_wins
+  - home_ties
+  - home_losses
+  - home_goals_for
+  - home_goals_against
+  - home_goal_diff
+  - home_points
+  - home_points_avg
+  - home_xg_for
+  - home_xg_against
+  - home_xg_diff
+  - home_xg_diff_per90
+  - away_games
+  - away_wins
+  - away_ties
+  - away_losses
+  - away_goals_for
+  - away_goals_against
+  - away_goal_diff
+  - away_points
+  - away_points_avg
+  - away_xg_for
+  - away_xg_against
+  - away_xg_diff
+  - away_xg_diff_per90
+  - rank
+  - rank
+  - rank
+
+Sample data from first row:

@@ -36,6 +36,4 @@ ENV/
 
 # Project specific
 logs/
-debug/
-data/
 *.log
