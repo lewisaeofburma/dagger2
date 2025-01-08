@@ -2,6 +2,7 @@ import os
 import json
 import shutil
 from datetime import datetime, timedelta
+from typing import Dict, Any
 from .logger import get_logger
 
 logger = get_logger()
@@ -106,6 +107,16 @@ class FileManager:
             logger.error(f"Error loading data from {filename}: {e}")
             return None
     
+    def save_team_data(self, data: Dict[str, Any], filename: str) -> None:
+        """
+        Save team data to JSON file in the teams directory
+        
+        Args:
+            data: Dictionary containing team data
+            filename: Name of the file to save
+        """
+        self.save_json(data, filename, 'teams')
+
     def cleanup_old_files(self, days=7):
         """
         Clean up old files

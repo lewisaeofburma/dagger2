@@ -1,19 +1,27 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException
 import sys
 from pathlib import Path
 import json
 from datetime import datetime
+import logging
+from typing import Optional, Dict, List, Any, Union
 
 # Add src directory to Python path
 src_dir = str(Path(__file__).resolve().parent.parent)
 if src_dir not in sys.path:
     sys.path.append(src_dir)
 
+# Add project root to Python path for debug module
+project_root = str(Path(__file__).resolve().parent.parent.parent)
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
 from scrapers.base_scraper import BaseScraper
 from utils import get_logger
 from utils.file_manager import FileManager
+from debug.html_analyzer import HTMLAnalyzer
 
 logger = get_logger('scraper.team_stats')
 
@@ -22,90 +30,97 @@ class TeamStatsScraper(BaseScraper):
         """Initialize the Team Stats scraper"""
         super().__init__()
         self.file_manager = FileManager()
+        self.html_analyzer = HTMLAnalyzer()
+        logger.info("Team Stats Scraper initialized")
         
-    def _extract_table_data(self, table, exclude_cols=None):
+    def _extract_table_data(self, table, exclude_cols: Optional[List[str]] = None) -> List[Dict[str, Any]]:
         """
         Extract data from a table
         
         Args:
             table: Selenium WebElement representing the table
-            exclude_cols (list): List of column names to exclude
+            exclude_cols: List of column names to exclude
             
         Returns:
-            list: List of dictionaries containing row data
+            List of dictionaries containing row data
         """
         if exclude_cols is None:
             exclude_cols = []
             
         try:
+            table_id = table.get_attribute('id')
+            logger.debug(f"Extracting data from table: {table_id}")
+            
             rows = table.find_elements(By.CSS_SELECTOR, "tbody tr:not(.thead)")
             data = []
             
-            for row in rows:
-                row_data = {}
-                cells = row.find_elements(By.CSS_SELECTOR, "td, th")
-                
-                for cell in cells:
-                    stat = cell.get_attribute('data-stat')
-                    if stat and stat not in exclude_cols:
-                        value = cell.text.strip()
-                        # Convert numeric values
-                        try:
-                            if '.' in value:
-                                value = float(value)
-                            elif value.isdigit():
-                                value = int(value)
-                            elif value.startswith('+') and value[1:].isdigit():
-                                value = int(value)
-                            elif value.startswith('-') and value[1:].isdigit():
-                                value = int(value)
-                            elif ',' in value:
-                                value = float(value.replace(',', ''))
-                        except ValueError:
-                            pass
-                        row_data[stat] = value
-                        
-                if row_data:  # Only add non-empty rows
-                    data.append(row_data)
+            for row_idx, row in enumerate(rows, 1):
+                try:
+                    row_data = {}
+                    cells = row.find_elements(By.CSS_SELECTOR, "td, th")
                     
+                    for cell in cells:
+                        try:
+                            stat = cell.get_attribute('data-stat')
+                            if stat and stat not in exclude_cols:
+                                value = cell.text.strip()
+                                # Convert numeric values
+                                try:
+                                    if '.' in value:
+                                        value = float(value)
+                                    elif value.isdigit():
+                                        value = int(value)
+                                    elif value.startswith(('+', '-')) and value[1:].isdigit():
+                                        value = int(value)
+                                    elif ',' in value:
+                                        value = float(value.replace(',', ''))
+                                except ValueError:
+                                    pass
+                                row_data[stat] = value
+                                
+                        except StaleElementReferenceException:
+                            logger.warning(f"Stale element in table {table_id}, row {row_idx}")
+                            continue
+                            
+                    if row_data:  # Only add non-empty rows
+                        data.append(row_data)
+                        
+                except Exception as e:
+                    logger.error(f"Error processing row {row_idx} in table {table_id}: {str(e)}")
+                    continue
+                    
+            logger.debug(f"Extracted {len(data)} rows from table {table_id}")
             return data
             
         except Exception as e:
-            logger.error(f"Error extracting table data: {e}")
+            logger.error(f"Error extracting table data: {str(e)}", exc_info=True)
             return []
             
-    def get_team_stats(self, team_url):
+    def get_team_stats(self, team_url: str) -> Optional[Dict[str, Any]]:
         """
         Get comprehensive team statistics
         
         Args:
-            team_url (str): URL of the team's page
+            team_url: URL of the team's page
             
         Returns:
-            dict: Dictionary containing team statistics
+            Dictionary containing team statistics
         """
         logger.info(f"Fetching team statistics from: {team_url}")
         
-        if not self.get_page(team_url):
-            logger.error("Failed to load team page")
-            return None
-            
         try:
+            # First analyze the page structure
+            self.html_analyzer.analyze_page(team_url, save_html=True)
+            
+            if not self.get_page(team_url):
+                logger.error("Failed to load team page")
+                return None
+                
             team_data = {
                 'url': team_url,
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'players': {},  # New section for player profiles
-                'squad': {},
-                'goalkeepers': {},
-                'matches': [],
-                'shooting': [],
-                'passing': [],
-                'pass_types': [],
-                'goal_creation': [],
-                'defense': [],
-                'possession': [],
-                'playing_time': [],
-                'miscellaneous': []
+                'players': {},  # All player stats will be stored here
+                'matches': []   # Keep matches separate as it's team-level data
             }
             
             # Squad Statistics (Standard)
@@ -115,7 +130,6 @@ class TeamStatsScraper(BaseScraper):
                     squad_table,
                     exclude_cols=['nationality']
                 )
-                team_data['squad']['standard'] = squad_stats
                 
                 # Create player profiles
                 for player_stats in squad_stats:
@@ -127,7 +141,9 @@ class TeamStatsScraper(BaseScraper):
                             'age': player_stats.get('age', ''),
                             'standard_stats': player_stats
                         }
-                logger.info("Collected squad standard statistics")
+                logger.info(f"Collected standard statistics for {len(squad_stats)} players")
+            else:
+                logger.warning("Squad statistics table not found")
             
             # Match Logs
             matches_table = self.wait_for_element(By.CSS_SELECTOR, "table#matchlogs_for")
@@ -137,6 +153,8 @@ class TeamStatsScraper(BaseScraper):
                     exclude_cols=['notes']
                 )
                 logger.info(f"Collected {len(team_data['matches'])} match logs")
+            else:
+                logger.warning("Match logs table not found")
             
             # Goalkeeper Statistics
             gk_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_keeper_9")
@@ -145,7 +163,6 @@ class TeamStatsScraper(BaseScraper):
                     gk_table,
                     exclude_cols=['nationality']
                 )
-                team_data['goalkeepers']['standard'] = gk_stats
                 
                 # Add goalkeeper stats to player profiles
                 for gk_stat in gk_stats:
@@ -161,7 +178,6 @@ class TeamStatsScraper(BaseScraper):
                     gk_adv_table,
                     exclude_cols=['nationality']
                 )
-                team_data['goalkeepers']['advanced'] = gk_adv_stats
                 
                 # Add advanced goalkeeper stats to player profiles
                 for gk_stat in gk_adv_stats:
@@ -178,7 +194,6 @@ class TeamStatsScraper(BaseScraper):
                     shooting_table,
                     exclude_cols=['nationality']
                 )
-                team_data['shooting'] = shooting_stats
                 
                 # Add shooting stats to player profiles
                 for shoot_stat in shooting_stats:
@@ -195,7 +210,6 @@ class TeamStatsScraper(BaseScraper):
                     passing_table,
                     exclude_cols=['nationality']
                 )
-                team_data['passing'] = passing_stats
                 
                 # Add passing stats to player profiles
                 for pass_stat in passing_stats:
@@ -212,7 +226,6 @@ class TeamStatsScraper(BaseScraper):
                     pass_types_table,
                     exclude_cols=['nationality']
                 )
-                team_data['pass_types'] = pass_types_stats
                 
                 # Add pass types stats to player profiles
                 for pass_type_stat in pass_types_stats:
@@ -229,7 +242,6 @@ class TeamStatsScraper(BaseScraper):
                     gca_table,
                     exclude_cols=['nationality']
                 )
-                team_data['goal_creation'] = gca_stats
                 
                 # Add goal creation stats to player profiles
                 for gca_stat in gca_stats:
@@ -246,7 +258,6 @@ class TeamStatsScraper(BaseScraper):
                     defense_table,
                     exclude_cols=['nationality']
                 )
-                team_data['defense'] = defense_stats
                 
                 # Add defensive stats to player profiles
                 for def_stat in defense_stats:
@@ -263,7 +274,6 @@ class TeamStatsScraper(BaseScraper):
                     possession_table,
                     exclude_cols=['nationality']
                 )
-                team_data['possession'] = possession_stats
                 
                 # Add possession stats to player profiles
                 for poss_stat in possession_stats:
@@ -280,7 +290,6 @@ class TeamStatsScraper(BaseScraper):
                     playing_time_table,
                     exclude_cols=['nationality']
                 )
-                team_data['playing_time'] = playing_time_stats
                 
                 # Add playing time stats to player profiles
                 for time_stat in playing_time_stats:
@@ -297,7 +306,6 @@ class TeamStatsScraper(BaseScraper):
                     misc_table,
                     exclude_cols=['nationality']
                 )
-                team_data['miscellaneous'] = misc_stats
                 
                 # Add miscellaneous stats to player profiles
                 for misc_stat in misc_stats:
@@ -307,44 +315,76 @@ class TeamStatsScraper(BaseScraper):
                             team_data['players'][player_name]['miscellaneous_stats'] = misc_stat
                 logger.info("Collected miscellaneous statistics")
             
-            # Save the data
-            timestamp = datetime.now().strftime('%Y%m%d')
-            team_name = team_url.split('/')[-2].lower()
-            filename = f"{team_name}_stats_{timestamp}.json"
+            # After collecting all stats
+            player_count = len(team_data['players'])
+            logger.info(f"Successfully collected data for {player_count} players")
             
-            self.file_manager.save_json(team_data, filename, 'teams')
-            logger.info(f"Saved team statistics to {filename}")
+            # Save the data
+            team_id = team_url.split('/')[-2]
+            filename = f"{team_id}_stats_{datetime.now().strftime('%Y%m%d')}.json"
+            
+            try:
+                self.file_manager.save_team_data(team_data, filename)
+                logger.info(f"Saved team statistics to {filename}")
+            except Exception as e:
+                logger.error(f"Error saving team data: {str(e)}", exc_info=True)
             
             return team_data
             
         except Exception as e:
-            logger.error(f"Error fetching team statistics: {e}")
+            logger.error(f"Error fetching team statistics: {str(e)}", exc_info=True)
             return None
             
-    def __del__(self):
-        """Clean up WebDriver when object is destroyed"""
-        if self.driver:
+    def cleanup(self):
+        """Clean up resources"""
+        if hasattr(self, 'driver') and self.driver:
             try:
                 self.driver.quit()
+                logger.debug("Successfully closed WebDriver")
             except Exception as e:
-                logger.error(f"Error closing WebDriver: {e}")
-                
-if __name__ == "__main__":
-    # Test the scraper with Liverpool's page
-    scraper = TeamStatsScraper()
-    liverpool_url = "https://fbref.com/en/squads/822bd0ba/Liverpool-Stats"
-    stats = scraper.get_team_stats(liverpool_url)
-    
-    if stats:
+                logger.error(f"Error closing WebDriver: {str(e)}")
+
+    def __del__(self):
+        """Clean up WebDriver when object is destroyed"""
+        try:
+            self.cleanup()
+            logger.debug("Successfully cleaned up WebDriver")
+        except Exception as e:
+            logger.error(f"Error during cleanup: {str(e)}")
+            
+def print_stats_summary(stats: Optional[Dict[str, Any]]) -> None:
+    """Print a summary of the collected statistics"""
+    if not stats:
+        logger.error("No statistics available to summarize")
+        return
+        
+    try:
         logger.info("\nTeam Statistics Summary:")
-        logger.info(f"Squad Players: {len(stats['squad'].get('standard', []))}")
+        logger.info(f"Squad Players: {len(stats['players'])}")
         logger.info(f"Matches: {len(stats['matches'])}")
-        logger.info(f"Goalkeepers: {len(stats['goalkeepers'].get('standard', []))}")
-        logger.info(f"Players with shooting stats: {len(stats['shooting'])}")
-        logger.info(f"Players with passing stats: {len(stats['passing'])}")
-        logger.info(f"Players with pass types: {len(stats['pass_types'])}")
-        logger.info(f"Players with goal creation stats: {len(stats['goal_creation'])}")
-        logger.info(f"Players with defensive stats: {len(stats['defense'])}")
-        logger.info(f"Players with possession stats: {len(stats['possession'])}")
-        logger.info(f"Players with playing time stats: {len(stats['playing_time'])}")
-        logger.info(f"Players with miscellaneous stats: {len(stats['miscellaneous'])}")
+        
+        # Count players by position
+        positions = {}
+        for player in stats['players'].values():
+            pos = player.get('position', 'Unknown')
+            positions[pos] = positions.get(pos, 0) + 1
+            
+        logger.info("\nPlayers by Position:")
+        for pos, count in sorted(positions.items()):
+            logger.info(f"{pos}: {count}")
+            
+    except Exception as e:
+        logger.error(f"Error generating statistics summary: {str(e)}", exc_info=True)
+        
+if __name__ == "__main__":
+    try:
+        # Test the scraper with Liverpool's page
+        scraper = TeamStatsScraper()
+        liverpool_url = "https://fbref.com/en/squads/822bd0ba/Liverpool-Stats"
+        stats = scraper.get_team_stats(liverpool_url)
+        print_stats_summary(stats)
+        
+    except Exception as e:
+        logger.error(f"Error in main execution: {str(e)}", exc_info=True)
+    finally:
+        logger.info("Scraper execution completed")

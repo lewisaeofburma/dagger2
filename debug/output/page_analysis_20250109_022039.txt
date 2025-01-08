@@ -1,0 +1,1852 @@
+=== PAGE ANALYSIS ===
+URL: https://fbref.com/en/squads/822bd0ba/Liverpool-Stats
+Timestamp: 20250109_022039
+Status Code: 200
+Content Type: text/html; charset=UTF-8
+
+=== PAGE METADATA ===
+Title: Liverpool Stats, Premier League | FBref.com
+Description: No description found
+
+=== TABLE ANALYSIS ===
+
+Table #1
+ID: stats_standard_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  -  (data-stat: No data-stat)
+  - Playing Time (data-stat: header_playing)
+  - Performance (data-stat: header_performance)
+  - Expected (data-stat: header_expected)
+  - Progression (data-stat: header_progression)
+  - Per 90 Minutes (data-stat: header_per90)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - MP (data-stat: games)
+  - Starts (data-stat: games_starts)
+  - Min (data-stat: minutes)
+  - 90s (data-stat: minutes_90s)
+  - Gls (data-stat: goals)
+  - Ast (data-stat: assists)
+  - G+A (data-stat: goals_assists)
+  - G-PK (data-stat: goals_pens)
+  - PK (data-stat: pens_made)
+  - PKatt (data-stat: pens_att)
+  - CrdY (data-stat: cards_yellow)
+  - CrdR (data-stat: cards_red)
+  - xG (data-stat: xg)
+  - npxG (data-stat: npxg)
+  - xAG (data-stat: xg_assist)
+  - npxG+xAG (data-stat: npxg_xg_assist)
+  - PrgC (data-stat: progressive_carries)
+  - PrgP (data-stat: progressive_passes)
+  - PrgR (data-stat: progressive_passes_received)
+  - Gls (data-stat: goals_per90)
+  - Ast (data-stat: assists_per90)
+  - G+A (data-stat: goals_assists_per90)
+  - G-PK (data-stat: goals_pens_per90)
+  - G+A-PK (data-stat: goals_assists_pens_per90)
+  - xG (data-stat: xg_per90)
+  - xAG (data-stat: xg_assist_per90)
+  - xG+xAG (data-stat: xg_xg_assist_per90)
+  - npxG (data-stat: npxg_per90)
+  - npxG+xAG (data-stat: npxg_xg_assist_per90)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Jayden Danns (data-stat: player)
+  - Harvey Davies (data-stat: player)
+  - James McConnell (data-stat: player)
+  - Tyler Morton (data-stat: player)
+  - Amara Nallo (data-stat: player)
+  - Trey Nyoni (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - No data-stat: 
+  - header_playing: Playing Time
+  - header_performance: Performance
+  - header_expected: Expected
+  - header_progression: Progression
+  - header_per90: Per 90 Minutes
+  - No data-stat: 
+
+
+Table #2
+ID: matchlogs_for
+Class: stats_table sortable min_width
+Headers:
+  - Date (data-stat: date)
+  - Time (data-stat: start_time)
+  - Comp (data-stat: comp)
+  - Round (data-stat: round)
+  - Day (data-stat: dayofweek)
+  - Venue (data-stat: venue)
+  - Result (data-stat: result)
+  - GF (data-stat: goals_for)
+  - GA (data-stat: goals_against)
+  - Opponent (data-stat: opponent)
+  - xG (data-stat: xg_for)
+  - xGA (data-stat: xg_against)
+  - Poss (data-stat: possession)
+  - Attendance (data-stat: attendance)
+  - Captain (data-stat: captain)
+  - Formation (data-stat: formation)
+  - Opp Formation (data-stat: opp_formation)
+  - Referee (data-stat: referee)
+  - Match Report (data-stat: match_report)
+  - Notes (data-stat: notes)
+  - 2024-08-17 (data-stat: date)
+  - 2024-08-25 (data-stat: date)
+  - 2024-09-01 (data-stat: date)
+  - 2024-09-14 (data-stat: date)
+  - 2024-09-17 (data-stat: date)
+  - 2024-09-21 (data-stat: date)
+  - 2024-09-25 (data-stat: date)
+  - 2024-09-28 (data-stat: date)
+  - 2024-10-02 (data-stat: date)
+  - 2024-10-05 (data-stat: date)
+  - 2024-10-20 (data-stat: date)
+  - 2024-10-23 (data-stat: date)
+  - 2024-10-27 (data-stat: date)
+  - 2024-10-30 (data-stat: date)
+  - 2024-11-02 (data-stat: date)
+  - 2024-11-05 (data-stat: date)
+  - 2024-11-09 (data-stat: date)
+  - 2024-11-24 (data-stat: date)
+  - 2024-11-27 (data-stat: date)
+  - 2024-12-01 (data-stat: date)
+  - 2024-12-04 (data-stat: date)
+  - 2024-12-07 (data-stat: date)
+  - 2024-12-10 (data-stat: date)
+  - 2024-12-14 (data-stat: date)
+  - 2024-12-18 (data-stat: date)
+  - 2024-12-22 (data-stat: date)
+  - 2024-12-26 (data-stat: date)
+  - 2024-12-29 (data-stat: date)
+  - 2025-01-05 (data-stat: date)
+  - 2025-01-08 (data-stat: date)
+  - 2025-01-11 (data-stat: date)
+  - 2025-01-14 (data-stat: date)
+  - 2025-01-18 (data-stat: date)
+  - 2025-01-21 (data-stat: date)
+  - 2025-01-25 (data-stat: date)
+  - 2025-01-29 (data-stat: date)
+  - 2025-02-01 (data-stat: date)
+  - 2025-02-06 (data-stat: date)
+  - 2025-02-16 (data-stat: date)
+  - 2025-02-23 (data-stat: date)
+  - 2025-02-26 (data-stat: date)
+  - 2025-03-08 (data-stat: date)
+  - 2025-03-15 (data-stat: date)
+  - 2025-04-02 (data-stat: date)
+  - 2025-04-05 (data-stat: date)
+  - 2025-04-12 (data-stat: date)
+  - 2025-04-19 (data-stat: date)
+  - 2025-04-26 (data-stat: date)
+  - 2025-05-03 (data-stat: date)
+  - 2025-05-10 (data-stat: date)
+  - 2025-05-18 (data-stat: date)
+  - 2025-05-25 (data-stat: date)
+Sample Row Data:
+  - date: Date
+  - start_time: Time
+  - comp: Comp
+  - round: Round
+  - dayofweek: Day
+  - venue: Venue
+  - result: Result
+  - goals_for: GF
+  - goals_against: GA
+  - opponent: Opponent
+  - xg_for: xG
+  - xg_against: xGA
+  - possession: Poss
+  - attendance: Attendance
+  - captain: Captain
+  - formation: Formation
+  - opp_formation: Opp Formation
+  - referee: Referee
+  - match_report: Match Report
+  - notes: Notes
+
+
+Table #3
+ID: stats_keeper_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Playing Time (data-stat: header_playing)
+  - Performance (data-stat: header_performance)
+  - Penalty Kicks (data-stat: header_pk)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - MP (data-stat: gk_games)
+  - Starts (data-stat: gk_games_starts)
+  - Min (data-stat: gk_minutes)
+  - 90s (data-stat: minutes_90s)
+  - GA (data-stat: gk_goals_against)
+  - GA90 (data-stat: gk_goals_against_per90)
+  - SoTA (data-stat: gk_shots_on_target_against)
+  - Saves (data-stat: gk_saves)
+  - Save% (data-stat: gk_save_pct)
+  - W (data-stat: gk_wins)
+  - D (data-stat: gk_ties)
+  - L (data-stat: gk_losses)
+  - CS (data-stat: gk_clean_sheets)
+  - CS% (data-stat: gk_clean_sheets_pct)
+  - PKatt (data-stat: gk_pens_att)
+  - PKA (data-stat: gk_pens_allowed)
+  - PKsv (data-stat: gk_pens_saved)
+  - PKm (data-stat: gk_pens_missed)
+  - Save% (data-stat: gk_pens_save_pct)
+  - Matches (data-stat: matches)
+  - Alisson (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_playing: Playing Time
+  - header_performance: Performance
+  - header_pk: Penalty Kicks
+  - No data-stat: 
+
+
+Table #4
+ID: stats_keeper_adv_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Goals (data-stat: header_goals)
+  - Expected (data-stat: header_expected)
+  - Launched (data-stat: header_passes_launched)
+  - Passes (data-stat: header_passes)
+  - Goal Kicks (data-stat: header_goal_kicks)
+  - Crosses (data-stat: header_crosses_gk)
+  - Sweeper (data-stat: header_sweeper)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - GA (data-stat: gk_goals_against)
+  - PKA (data-stat: gk_pens_allowed)
+  - FK (data-stat: gk_free_kick_goals_against)
+  - CK (data-stat: gk_corner_kick_goals_against)
+  - OG (data-stat: gk_own_goals_against)
+  - PSxG (data-stat: gk_psxg)
+  - PSxG/SoT (data-stat: gk_psnpxg_per_shot_on_target_against)
+  - PSxG+/- (data-stat: gk_psxg_net)
+  - /90 (data-stat: gk_psxg_net_per90)
+  - Cmp (data-stat: gk_passes_completed_launched)
+  - Att (data-stat: gk_passes_launched)
+  - Cmp% (data-stat: gk_passes_pct_launched)
+  - Att (GK) (data-stat: gk_passes)
+  - Thr (data-stat: gk_passes_throws)
+  - Launch% (data-stat: gk_pct_passes_launched)
+  - AvgLen (data-stat: gk_passes_length_avg)
+  - Att (data-stat: gk_goal_kicks)
+  - Launch% (data-stat: gk_pct_goal_kicks_launched)
+  - AvgLen (data-stat: gk_goal_kick_length_avg)
+  - Opp (data-stat: gk_crosses)
+  - Stp (data-stat: gk_crosses_stopped)
+  - Stp% (data-stat: gk_crosses_stopped_pct)
+  - #OPA (data-stat: gk_def_actions_outside_pen_area)
+  - #OPA/90 (data-stat: gk_def_actions_outside_pen_area_per90)
+  - AvgDist (data-stat: gk_avg_distance_def_actions)
+  - Matches (data-stat: matches)
+  - Alisson (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_goals: Goals
+  - header_expected: Expected
+  - header_passes_launched: Launched
+  - header_passes: Passes
+  - header_goal_kicks: Goal Kicks
+  - header_crosses_gk: Crosses
+  - header_sweeper: Sweeper
+  - No data-stat: 
+
+
+Table #5
+ID: stats_shooting_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Standard (data-stat: header_standard)
+  - Expected (data-stat: header_expected)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - Gls (data-stat: goals)
+  - Sh (data-stat: shots)
+  - SoT (data-stat: shots_on_target)
+  - SoT% (data-stat: shots_on_target_pct)
+  - Sh/90 (data-stat: shots_per90)
+  - SoT/90 (data-stat: shots_on_target_per90)
+  - G/Sh (data-stat: goals_per_shot)
+  - G/SoT (data-stat: goals_per_shot_on_target)
+  - Dist (data-stat: average_shot_distance)
+  - FK (data-stat: shots_free_kicks)
+  - PK (data-stat: pens_made)
+  - PKatt (data-stat: pens_att)
+  - xG (data-stat: xg)
+  - npxG (data-stat: npxg)
+  - npxG/Sh (data-stat: npxg_per_shot)
+  - G-xG (data-stat: xg_net)
+  - np:G-xG (data-stat: npxg_net)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_standard: Standard
+  - header_expected: Expected
+  - No data-stat: 
+
+
+Table #6
+ID: stats_passing_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Total (data-stat: header_passes_total)
+  - Short (data-stat: header_passes_short)
+  - Medium (data-stat: header_passes_medium)
+  - Long (data-stat: header_passes_long)
+  -  (data-stat: )
+  - Expected (data-stat: header_expected)
+  -  (data-stat: )
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - Cmp (data-stat: passes_completed)
+  - Att (data-stat: passes)
+  - Cmp% (data-stat: passes_pct)
+  - TotDist (data-stat: passes_total_distance)
+  - PrgDist (data-stat: passes_progressive_distance)
+  - Cmp (data-stat: passes_completed_short)
+  - Att (data-stat: passes_short)
+  - Cmp% (data-stat: passes_pct_short)
+  - Cmp (data-stat: passes_completed_medium)
+  - Att (data-stat: passes_medium)
+  - Cmp% (data-stat: passes_pct_medium)
+  - Cmp (data-stat: passes_completed_long)
+  - Att (data-stat: passes_long)
+  - Cmp% (data-stat: passes_pct_long)
+  - Ast (data-stat: assists)
+  - xAG (data-stat: xg_assist)
+  - xA (data-stat: pass_xa)
+  - A-xAG (data-stat: xg_assist_net)
+  - KP (data-stat: assisted_shots)
+  - 1/3 (data-stat: passes_into_final_third)
+  - PPA (data-stat: passes_into_penalty_area)
+  - CrsPA (data-stat: crosses_into_penalty_area)
+  - PrgP (data-stat: progressive_passes)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_passes_total: Total
+  - header_passes_short: Short
+  - header_passes_medium: Medium
+  - header_passes_long: Long
+  - : 
+  - header_expected: Expected
+  - : 
+  - No data-stat: 
+
+
+Table #7
+ID: stats_passing_types_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Pass Types (data-stat: header_pass_types)
+  - Corner Kicks (data-stat: header_corner_kicks)
+  - Outcomes (data-stat: header_pass_outcomes)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - Att (data-stat: passes)
+  - Live (data-stat: passes_live)
+  - Dead (data-stat: passes_dead)
+  - FK (data-stat: passes_free_kicks)
+  - TB (data-stat: through_balls)
+  - Sw (data-stat: passes_switches)
+  - Crs (data-stat: crosses)
+  - TI (data-stat: throw_ins)
+  - CK (data-stat: corner_kicks)
+  - In (data-stat: corner_kicks_in)
+  - Out (data-stat: corner_kicks_out)
+  - Str (data-stat: corner_kicks_straight)
+  - Cmp (data-stat: passes_completed)
+  - Off (data-stat: passes_offsides)
+  - Blocks (data-stat: passes_blocked)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_pass_types: Pass Types
+  - header_corner_kicks: Corner Kicks
+  - header_pass_outcomes: Outcomes
+  - No data-stat: 
+
+
+Table #8
+ID: stats_gca_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - SCA (data-stat: header_sca)
+  - SCA Types (data-stat: header_sca_types)
+  - GCA (data-stat: header_gca)
+  - GCA Types (data-stat: header_gca_types)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - SCA (data-stat: sca)
+  - SCA90 (data-stat: sca_per90)
+  - PassLive (data-stat: sca_passes_live)
+  - PassDead (data-stat: sca_passes_dead)
+  - TO (data-stat: sca_take_ons)
+  - Sh (data-stat: sca_shots)
+  - Fld (data-stat: sca_fouled)
+  - Def (data-stat: sca_defense)
+  - GCA (data-stat: gca)
+  - GCA90 (data-stat: gca_per90)
+  - PassLive (data-stat: gca_passes_live)
+  - PassDead (data-stat: gca_passes_dead)
+  - TO (data-stat: gca_take_ons)
+  - Sh (data-stat: gca_shots)
+  - Fld (data-stat: gca_fouled)
+  - Def (data-stat: gca_defense)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_sca: SCA
+  - header_sca_types: SCA Types
+  - header_gca: GCA
+  - header_gca_types: GCA Types
+  - No data-stat: 
+
+
+Table #9
+ID: stats_defense_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Tackles (data-stat: header_tackles)
+  - Challenges (data-stat: header_challenges)
+  - Blocks (data-stat: header_blocks)
+  -  (data-stat: )
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - Tkl (data-stat: tackles)
+  - TklW (data-stat: tackles_won)
+  - Def 3rd (data-stat: tackles_def_3rd)
+  - Mid 3rd (data-stat: tackles_mid_3rd)
+  - Att 3rd (data-stat: tackles_att_3rd)
+  - Tkl (data-stat: challenge_tackles)
+  - Att (data-stat: challenges)
+  - Tkl% (data-stat: challenge_tackles_pct)
+  - Lost (data-stat: challenges_lost)
+  - Blocks (data-stat: blocks)
+  - Sh (data-stat: blocked_shots)
+  - Pass (data-stat: blocked_passes)
+  - Int (data-stat: interceptions)
+  - Tkl+Int (data-stat: tackles_interceptions)
+  - Clr (data-stat: clearances)
+  - Err (data-stat: errors)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_tackles: Tackles
+  - header_challenges: Challenges
+  - header_blocks: Blocks
+  - : 
+  - No data-stat: 
+
+
+Table #10
+ID: stats_possession_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Touches (data-stat: header_touches)
+  - Take-Ons (data-stat: header_take_ons)
+  - Carries (data-stat: header_carries)
+  - Receiving (data-stat: header_receiving)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - Touches (data-stat: touches)
+  - Def Pen (data-stat: touches_def_pen_area)
+  - Def 3rd (data-stat: touches_def_3rd)
+  - Mid 3rd (data-stat: touches_mid_3rd)
+  - Att 3rd (data-stat: touches_att_3rd)
+  - Att Pen (data-stat: touches_att_pen_area)
+  - Live (data-stat: touches_live_ball)
+  - Att (data-stat: take_ons)
+  - Succ (data-stat: take_ons_won)
+  - Succ% (data-stat: take_ons_won_pct)
+  - Tkld (data-stat: take_ons_tackled)
+  - Tkld% (data-stat: take_ons_tackled_pct)
+  - Carries (data-stat: carries)
+  - TotDist (data-stat: carries_distance)
+  - PrgDist (data-stat: carries_progressive_distance)
+  - PrgC (data-stat: progressive_carries)
+  - 1/3 (data-stat: carries_into_final_third)
+  - CPA (data-stat: carries_into_penalty_area)
+  - Mis (data-stat: miscontrols)
+  - Dis (data-stat: dispossessed)
+  - Rec (data-stat: passes_received)
+  - PrgR (data-stat: progressive_passes_received)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_touches: Touches
+  - header_take_ons: Take-Ons
+  - header_carries: Carries
+  - header_receiving: Receiving
+  - No data-stat: 
+
+
+Table #11
+ID: stats_playing_time_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  -  (data-stat: No data-stat)
+  - Playing Time (data-stat: header_playing)
+  - Starts (data-stat: header_starts)
+  - Subs (data-stat: header_subs)
+  - Team Success (data-stat: header_team_success)
+  - Team Success (xG) (data-stat: header_xg_team_success)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - MP (data-stat: games)
+  - Min (data-stat: minutes)
+  - Mn/MP (data-stat: minutes_per_game)
+  - Min% (data-stat: minutes_pct)
+  - 90s (data-stat: minutes_90s)
+  - Starts (data-stat: games_starts)
+  - Mn/Start (data-stat: minutes_per_start)
+  - Compl (data-stat: games_complete)
+  - Subs (data-stat: games_subs)
+  - Mn/Sub (data-stat: minutes_per_sub)
+  - unSub (data-stat: unused_subs)
+  - PPM (data-stat: points_per_game)
+  - onG (data-stat: on_goals_for)
+  - onGA (data-stat: on_goals_against)
+  - +/- (data-stat: plus_minus)
+  - +/-90 (data-stat: plus_minus_per90)
+  - On-Off (data-stat: plus_minus_wowy)
+  - onxG (data-stat: on_xg_for)
+  - onxGA (data-stat: on_xg_against)
+  - xG+/- (data-stat: xg_plus_minus)
+  - xG+/-90 (data-stat: xg_plus_minus_per90)
+  - On-Off (data-stat: xg_plus_minus_wowy)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Jayden Danns (data-stat: player)
+  - Harvey Davies (data-stat: player)
+  - James McConnell (data-stat: player)
+  - Tyler Morton (data-stat: player)
+  - Amara Nallo (data-stat: player)
+  - Trey Nyoni (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - No data-stat: 
+  - header_playing: Playing Time
+  - header_starts: Starts
+  - header_subs: Subs
+  - header_team_success: Team Success
+  - header_xg_team_success: Team Success (xG)
+  - No data-stat: 
+
+
+Table #12
+ID: stats_misc_9
+Class: stats_table sortable min_width
+Headers:
+  -  (data-stat: )
+  - Performance (data-stat: header_performance)
+  - Aerial Duels (data-stat: header_aerials)
+  -  (data-stat: No data-stat)
+  - Player (data-stat: player)
+  - Nation (data-stat: nationality)
+  - Pos (data-stat: position)
+  - Age (data-stat: age)
+  - 90s (data-stat: minutes_90s)
+  - CrdY (data-stat: cards_yellow)
+  - CrdR (data-stat: cards_red)
+  - 2CrdY (data-stat: cards_yellow_red)
+  - Fls (data-stat: fouls)
+  - Fld (data-stat: fouled)
+  - Off (data-stat: offsides)
+  - Crs (data-stat: crosses)
+  - Int (data-stat: interceptions)
+  - TklW (data-stat: tackles_won)
+  - PKwon (data-stat: pens_won)
+  - PKcon (data-stat: pens_conceded)
+  - OG (data-stat: own_goals)
+  - Recov (data-stat: ball_recoveries)
+  - Won (data-stat: aerials_won)
+  - Lost (data-stat: aerials_lost)
+  - Won% (data-stat: aerials_won_pct)
+  - Matches (data-stat: matches)
+  - Virgil van Dijk (data-stat: player)
+  - Mohamed Salah (data-stat: player)
+  - Ryan Gravenberch (data-stat: player)
+  - Trent Alexander-Arnold (data-stat: player)
+  - Andrew Robertson (data-stat: player)
+  - Alexis Mac Allister (data-stat: player)
+  - Luis Díaz (data-stat: player)
+  - Dominik Szoboszlai (data-stat: player)
+  - Ibrahima Konaté (data-stat: player)
+  - Cody Gakpo (data-stat: player)
+  - Alisson (data-stat: player)
+  - Curtis Jones (data-stat: player)
+  - Caoimhín Kelleher (data-stat: player)
+  - Darwin Núñez (data-stat: player)
+  - Diogo Jota (data-stat: player)
+  - Joe Gomez (data-stat: player)
+  - Kostas Tsimikas (data-stat: player)
+  - Jarell Quansah (data-stat: player)
+  - Conor Bradley (data-stat: player)
+  - Wataru Endo (data-stat: player)
+  - Harvey Elliott (data-stat: player)
+  - Federico Chiesa (data-stat: player)
+  - Vitezslav Jaros (data-stat: player)
+  - Squad Total (data-stat: player)
+  - Opponent Total (data-stat: player)
+Sample Row Data:
+  - : 
+  - header_performance: Performance
+  - header_aerials: Aerial Duels
+  - No data-stat: 
+
+
+Table #13
+ID: results2024-202591_overall
+Class: stats_table sortable min_width force_mobilize
+Headers:
+  - Rk (data-stat: rank)
+  - Squad (data-stat: team)
+  - MP (data-stat: games)
+  - W (data-stat: wins)
+  - D (data-stat: ties)
+  - L (data-stat: losses)
+  - GF (data-stat: goals_for)
+  - GA (data-stat: goals_against)
+  - GD (data-stat: goal_diff)
+  - Pts (data-stat: points)
+  - Pts/MP (data-stat: points_avg)
+  - xG (data-stat: xg_for)
+  - xGA (data-stat: xg_against)
+  - xGD (data-stat: xg_diff)
+  - xGD/90 (data-stat: xg_diff_per90)
+  - Last 5 (data-stat: last_5)
+  - Attendance (data-stat: attendance_per_g)
+  - Top Team Scorer (data-stat: top_team_scorers)
+  - Goalkeeper (data-stat: top_keeper)
+  - Notes (data-stat: notes)
+  - 1 (data-stat: rank)
+  - 2 (data-stat: rank)
+  - 3 (data-stat: rank)
+Sample Row Data:
+  - rank: Rk
+  - team: Squad
+  - games: MP
+  - wins: W
+  - ties: D
+  - losses: L
+  - goals_for: GF
+  - goals_against: GA
+  - goal_diff: GD
+  - points: Pts
+  - points_avg: Pts/MP
+  - xg_for: xG
+  - xg_against: xGA
+  - xg_diff: xGD
+  - xg_diff_per90: xGD/90
+  - last_5: Last 5
+  - attendance_per_g: Attendance
+  - top_team_scorers: Top Team Scorer
+  - top_keeper: Goalkeeper
+  - notes: Notes
+
+
+Table #14
+ID: results2024-202591_home_away
+Class: stats_table sortable min_width force_mobilize
+Headers:
+  -  (data-stat: )
+  - Home (data-stat: header_home)
+  - Away (data-stat: header_away)
+  - Rk (data-stat: rank)
+  - Squad (data-stat: team)
+  - MP (data-stat: home_games)
+  - W (data-stat: home_wins)
+  - D (data-stat: home_ties)
+  - L (data-stat: home_losses)
+  - GF (data-stat: home_goals_for)
+  - GA (data-stat: home_goals_against)
+  - GD (data-stat: home_goal_diff)
+  - Pts (data-stat: home_points)
+  - Pts/MP (data-stat: home_points_avg)
+  - xG (data-stat: home_xg_for)
+  - xGA (data-stat: home_xg_against)
+  - xGD (data-stat: home_xg_diff)
+  - xGD/90 (data-stat: home_xg_diff_per90)
+  - MP (data-stat: away_games)
+  - W (data-stat: away_wins)
+  - D (data-stat: away_ties)
+  - L (data-stat: away_losses)
+  - GF (data-stat: away_goals_for)
+  - GA (data-stat: away_goals_against)
+  - GD (data-stat: away_goal_diff)
+  - Pts (data-stat: away_points)
+  - Pts/MP (data-stat: away_points_avg)
+  - xG (data-stat: away_xg_for)
+  - xGA (data-stat: away_xg_against)
+  - xGD (data-stat: away_xg_diff)
+  - xGD/90 (data-stat: away_xg_diff_per90)
+  - 1 (data-stat: rank)
+  - 2 (data-stat: rank)
+  - 3 (data-stat: rank)
+Sample Row Data:
+  - : 
+  - header_home: Home
+  - header_away: Away
+
+=== DATA ATTRIBUTES ANALYSIS ===
+data-stat: 
+  Count: 15
+  Sample: 
+data-stat: aerials_lost
+  Count: 26
+  Sample: Lost
+data-stat: aerials_won
+  Count: 26
+  Sample: Won
+data-stat: aerials_won_pct
+  Count: 26
+  Sample: Won%
+data-stat: age
+  Count: 258
+  Sample: Age
+data-stat: assisted_shots
+  Count: 26
+  Sample: KP
+data-stat: assists
+  Count: 58
+  Sample: Ast
+data-stat: assists_per90
+  Count: 32
+  Sample: Ast
+data-stat: attendance
+  Count: 53
+  Sample: Attendance
+data-stat: attendance_per_g
+  Count: 4
+  Sample: Attendance
+data-stat: average_shot_distance
+  Count: 26
+  Sample: Dist
+data-stat: away_games
+  Count: 4
+  Sample: MP
+data-stat: away_goal_diff
+  Count: 4
+  Sample: GD
+data-stat: away_goals_against
+  Count: 4
+  Sample: GA
+data-stat: away_goals_for
+  Count: 4
+  Sample: GF
+data-stat: away_losses
+  Count: 4
+  Sample: L
+data-stat: away_points
+  Count: 4
+  Sample: Pts
+data-stat: away_points_avg
+  Count: 4
+  Sample: Pts/MP
+data-stat: away_ties
+  Count: 4
+  Sample: D
+data-stat: away_wins
+  Count: 4
+  Sample: W
+data-stat: away_xg_against
+  Count: 4
+  Sample: xGA
+data-stat: away_xg_diff
+  Count: 4
+  Sample: xGD
+data-stat: away_xg_diff_per90
+  Count: 4
+  Sample: xGD/90
+data-stat: away_xg_for
+  Count: 4
+  Sample: xG
+data-stat: ball_recoveries
+  Count: 26
+  Sample: Recov
+data-stat: blocked_passes
+  Count: 26
+  Sample: Pass
+data-stat: blocked_shots
+  Count: 26
+  Sample: Sh
+data-stat: blocks
+  Count: 26
+  Sample: Blocks
+data-stat: captain
+  Count: 53
+  Sample: Captain
+data-stat: cards_red
+  Count: 58
+  Sample: CrdR
+data-stat: cards_yellow
+  Count: 58
+  Sample: CrdY
+data-stat: cards_yellow_red
+  Count: 26
+  Sample: 2CrdY
+data-stat: carries
+  Count: 26
+  Sample: Carries
+data-stat: carries_distance
+  Count: 26
+  Sample: TotDist
+data-stat: carries_into_final_third
+  Count: 26
+  Sample: 1/3
+data-stat: carries_into_penalty_area
+  Count: 26
+  Sample: CPA
+data-stat: carries_progressive_distance
+  Count: 26
+  Sample: PrgDist
+data-stat: challenge_tackles
+  Count: 26
+  Sample: Tkl
+data-stat: challenge_tackles_pct
+  Count: 26
+  Sample: Tkl%
+data-stat: challenges
+  Count: 26
+  Sample: Att
+data-stat: challenges_lost
+  Count: 26
+  Sample: Lost
+data-stat: clearances
+  Count: 26
+  Sample: Clr
+data-stat: comp
+  Count: 53
+  Sample: Comp
+data-stat: corner_kicks
+  Count: 26
+  Sample: CK
+data-stat: corner_kicks_in
+  Count: 26
+  Sample: In
+data-stat: corner_kicks_out
+  Count: 26
+  Sample: Out
+data-stat: corner_kicks_straight
+  Count: 26
+  Sample: Str
+data-stat: crosses
+  Count: 52
+  Sample: Crs
+data-stat: crosses_into_penalty_area
+  Count: 26
+  Sample: CrsPA
+data-stat: date
+  Count: 53
+  Sample: Date
+data-stat: dayofweek
+  Count: 53
+  Sample: Day
+data-stat: dispossessed
+  Count: 26
+  Sample: Dis
+data-stat: errors
+  Count: 26
+  Sample: Err
+data-stat: formation
+  Count: 53
+  Sample: Formation
+data-stat: fouled
+  Count: 26
+  Sample: Fld
+data-stat: fouls
+  Count: 26
+  Sample: Fls
+data-stat: games
+  Count: 68
+  Sample: MP
+data-stat: games_complete
+  Count: 32
+  Sample: Compl
+data-stat: games_starts
+  Count: 64
+  Sample: Starts
+data-stat: games_subs
+  Count: 32
+  Sample: Subs
+data-stat: gca
+  Count: 26
+  Sample: GCA
+data-stat: gca_defense
+  Count: 26
+  Sample: Def
+data-stat: gca_fouled
+  Count: 26
+  Sample: Fld
+data-stat: gca_passes_dead
+  Count: 26
+  Sample: PassDead
+data-stat: gca_passes_live
+  Count: 26
+  Sample: PassLive
+data-stat: gca_per90
+  Count: 26
+  Sample: GCA90
+data-stat: gca_shots
+  Count: 26
+  Sample: Sh
+data-stat: gca_take_ons
+  Count: 26
+  Sample: TO
+data-stat: gk_avg_distance_def_actions
+  Count: 6
+  Sample: AvgDist
+data-stat: gk_clean_sheets
+  Count: 6
+  Sample: CS
+data-stat: gk_clean_sheets_pct
+  Count: 6
+  Sample: CS%
+data-stat: gk_corner_kick_goals_against
+  Count: 6
+  Sample: CK
+data-stat: gk_crosses
+  Count: 6
+  Sample: Opp
+data-stat: gk_crosses_stopped
+  Count: 6
+  Sample: Stp
+data-stat: gk_crosses_stopped_pct
+  Count: 6
+  Sample: Stp%
+data-stat: gk_def_actions_outside_pen_area
+  Count: 6
+  Sample: #OPA
+data-stat: gk_def_actions_outside_pen_area_per90
+  Count: 6
+  Sample: #OPA/90
+data-stat: gk_free_kick_goals_against
+  Count: 6
+  Sample: FK
+data-stat: gk_games
+  Count: 6
+  Sample: MP
+data-stat: gk_games_starts
+  Count: 6
+  Sample: Starts
+data-stat: gk_goal_kick_length_avg
+  Count: 6
+  Sample: AvgLen
+data-stat: gk_goal_kicks
+  Count: 6
+  Sample: Att
+data-stat: gk_goals_against
+  Count: 12
+  Sample: GA
+data-stat: gk_goals_against_per90
+  Count: 6
+  Sample: GA90
+data-stat: gk_losses
+  Count: 6
+  Sample: L
+data-stat: gk_minutes
+  Count: 6
+  Sample: Min
+data-stat: gk_own_goals_against
+  Count: 6
+  Sample: OG
+data-stat: gk_passes
+  Count: 6
+  Sample: Att (GK)
+data-stat: gk_passes_completed_launched
+  Count: 6
+  Sample: Cmp
+data-stat: gk_passes_launched
+  Count: 6
+  Sample: Att
+data-stat: gk_passes_length_avg
+  Count: 6
+  Sample: AvgLen
+data-stat: gk_passes_pct_launched
+  Count: 6
+  Sample: Cmp%
+data-stat: gk_passes_throws
+  Count: 6
+  Sample: Thr
+data-stat: gk_pct_goal_kicks_launched
+  Count: 6
+  Sample: Launch%
+data-stat: gk_pct_passes_launched
+  Count: 6
+  Sample: Launch%
+data-stat: gk_pens_allowed
+  Count: 12
+  Sample: PKA
+data-stat: gk_pens_att
+  Count: 6
+  Sample: PKatt
+data-stat: gk_pens_missed
+  Count: 6
+  Sample: PKm
+data-stat: gk_pens_save_pct
+  Count: 6
+  Sample: Save%
+data-stat: gk_pens_saved
+  Count: 6
+  Sample: PKsv
+data-stat: gk_psnpxg_per_shot_on_target_against
+  Count: 6
+  Sample: PSxG/SoT
+data-stat: gk_psxg
+  Count: 6
+  Sample: PSxG
+data-stat: gk_psxg_net
+  Count: 6
+  Sample: PSxG+/-
+data-stat: gk_psxg_net_per90
+  Count: 6
+  Sample: /90
+data-stat: gk_save_pct
+  Count: 6
+  Sample: Save%
+data-stat: gk_saves
+  Count: 6
+  Sample: Saves
+data-stat: gk_shots_on_target_against
+  Count: 6
+  Sample: SoTA
+data-stat: gk_ties
+  Count: 6
+  Sample: D
+data-stat: gk_wins
+  Count: 6
+  Sample: W
+data-stat: goal_diff
+  Count: 4
+  Sample: GD
+data-stat: goals
+  Count: 58
+  Sample: Gls
+data-stat: goals_against
+  Count: 57
+  Sample: GA
+data-stat: goals_assists
+  Count: 32
+  Sample: G+A
+data-stat: goals_assists_pens_per90
+  Count: 32
+  Sample: G+A-PK
+data-stat: goals_assists_per90
+  Count: 32
+  Sample: G+A
+data-stat: goals_for
+  Count: 57
+  Sample: GF
+data-stat: goals_pens
+  Count: 32
+  Sample: G-PK
+data-stat: goals_pens_per90
+  Count: 32
+  Sample: G-PK
+data-stat: goals_per90
+  Count: 32
+  Sample: Gls
+data-stat: goals_per_shot
+  Count: 26
+  Sample: G/Sh
+data-stat: goals_per_shot_on_target
+  Count: 26
+  Sample: G/SoT
+data-stat: header_aerials
+  Count: 1
+  Sample: Aerial Duels
+data-stat: header_away
+  Count: 1
+  Sample: Away
+data-stat: header_blocks
+  Count: 1
+  Sample: Blocks
+data-stat: header_carries
+  Count: 1
+  Sample: Carries
+data-stat: header_challenges
+  Count: 1
+  Sample: Challenges
+data-stat: header_corner_kicks
+  Count: 1
+  Sample: Corner Kicks
+data-stat: header_crosses_gk
+  Count: 1
+  Sample: Crosses
+data-stat: header_expected
+  Count: 4
+  Sample: Expected
+data-stat: header_gca
+  Count: 1
+  Sample: GCA
+data-stat: header_gca_types
+  Count: 1
+  Sample: GCA Types
+data-stat: header_goal_kicks
+  Count: 1
+  Sample: Goal Kicks
+data-stat: header_goals
+  Count: 1
+  Sample: Goals
+data-stat: header_home
+  Count: 1
+  Sample: Home
+data-stat: header_pass_outcomes
+  Count: 1
+  Sample: Outcomes
+data-stat: header_pass_types
+  Count: 1
+  Sample: Pass Types
+data-stat: header_passes
+  Count: 1
+  Sample: Passes
+data-stat: header_passes_launched
+  Count: 1
+  Sample: Launched
+data-stat: header_passes_long
+  Count: 1
+  Sample: Long
+data-stat: header_passes_medium
+  Count: 1
+  Sample: Medium
+data-stat: header_passes_short
+  Count: 1
+  Sample: Short
+data-stat: header_passes_total
+  Count: 1
+  Sample: Total
+data-stat: header_per90
+  Count: 1
+  Sample: Per 90 Minutes
+data-stat: header_performance
+  Count: 3
+  Sample: Performance
+data-stat: header_pk
+  Count: 1
+  Sample: Penalty Kicks
+data-stat: header_playing
+  Count: 3
+  Sample: Playing Time
+data-stat: header_progression
+  Count: 1
+  Sample: Progression
+data-stat: header_receiving
+  Count: 1
+  Sample: Receiving
+data-stat: header_sca
+  Count: 1
+  Sample: SCA
+data-stat: header_sca_types
+  Count: 1
+  Sample: SCA Types
+data-stat: header_standard
+  Count: 1
+  Sample: Standard
+data-stat: header_starts
+  Count: 1
+  Sample: Starts
+data-stat: header_subs
+  Count: 1
+  Sample: Subs
+data-stat: header_sweeper
+  Count: 1
+  Sample: Sweeper
+data-stat: header_tackles
+  Count: 1
+  Sample: Tackles
+data-stat: header_take_ons
+  Count: 1
+  Sample: Take-Ons
+data-stat: header_team_success
+  Count: 1
+  Sample: Team Success
+data-stat: header_touches
+  Count: 1
+  Sample: Touches
+data-stat: header_xg_team_success
+  Count: 1
+  Sample: Team Success (xG)
+data-stat: home_games
+  Count: 4
+  Sample: MP
+data-stat: home_goal_diff
+  Count: 4
+  Sample: GD
+data-stat: home_goals_against
+  Count: 4
+  Sample: GA
+data-stat: home_goals_for
+  Count: 4
+  Sample: GF
+data-stat: home_losses
+  Count: 4
+  Sample: L
+data-stat: home_points
+  Count: 4
+  Sample: Pts
+data-stat: home_points_avg
+  Count: 4
+  Sample: Pts/MP
+data-stat: home_ties
+  Count: 4
+  Sample: D
+data-stat: home_wins
+  Count: 4
+  Sample: W
+data-stat: home_xg_against
+  Count: 4
+  Sample: xGA
+data-stat: home_xg_diff
+  Count: 4
+  Sample: xGD
+data-stat: home_xg_diff_per90
+  Count: 4
+  Sample: xGD/90
+data-stat: home_xg_for
+  Count: 4
+  Sample: xG
+data-stat: interceptions
+  Count: 52
+  Sample: Int
+data-stat: last_5
+  Count: 4
+  Sample: Last 5
+data-stat: losses
+  Count: 4
+  Sample: L
+data-stat: match_report
+  Count: 53
+  Sample: Match Report
+data-stat: matches
+  Count: 258
+  Sample: Matches
+data-stat: minutes
+  Count: 64
+  Sample: Min
+data-stat: minutes_90s
+  Count: 258
+  Sample: 90s
+data-stat: minutes_pct
+  Count: 32
+  Sample: Min%
+data-stat: minutes_per_game
+  Count: 32
+  Sample: Mn/MP
+data-stat: minutes_per_start
+  Count: 32
+  Sample: Mn/Start
+data-stat: minutes_per_sub
+  Count: 32
+  Sample: Mn/Sub
+data-stat: miscontrols
+  Count: 26
+  Sample: Mis
+data-stat: nationality
+  Count: 258
+  Sample: Nation
+data-stat: notes
+  Count: 57
+  Sample: Notes
+data-stat: npxg
+  Count: 58
+  Sample: npxG
+data-stat: npxg_net
+  Count: 26
+  Sample: np:G-xG
+data-stat: npxg_per90
+  Count: 32
+  Sample: npxG
+data-stat: npxg_per_shot
+  Count: 26
+  Sample: npxG/Sh
+data-stat: npxg_xg_assist
+  Count: 32
+  Sample: npxG+xAG
+data-stat: npxg_xg_assist_per90
+  Count: 32
+  Sample: npxG+xAG
+data-stat: offsides
+  Count: 26
+  Sample: Off
+data-stat: on_goals_against
+  Count: 32
+  Sample: onGA
+data-stat: on_goals_for
+  Count: 32
+  Sample: onG
+data-stat: on_xg_against
+  Count: 32
+  Sample: onxGA
+data-stat: on_xg_for
+  Count: 32
+  Sample: onxG
+data-stat: opp_formation
+  Count: 53
+  Sample: Opp Formation
+data-stat: opponent
+  Count: 53
+  Sample: Opponent
+data-stat: own_goals
+  Count: 26
+  Sample: OG
+data-stat: pass_xa
+  Count: 26
+  Sample: xA
+data-stat: passes
+  Count: 52
+  Sample: Att
+data-stat: passes_blocked
+  Count: 26
+  Sample: Blocks
+data-stat: passes_completed
+  Count: 52
+  Sample: Cmp
+data-stat: passes_completed_long
+  Count: 26
+  Sample: Cmp
+data-stat: passes_completed_medium
+  Count: 26
+  Sample: Cmp
+data-stat: passes_completed_short
+  Count: 26
+  Sample: Cmp
+data-stat: passes_dead
+  Count: 26
+  Sample: Dead
+data-stat: passes_free_kicks
+  Count: 26
+  Sample: FK
+data-stat: passes_into_final_third
+  Count: 26
+  Sample: 1/3
+data-stat: passes_into_penalty_area
+  Count: 26
+  Sample: PPA
+data-stat: passes_live
+  Count: 26
+  Sample: Live
+data-stat: passes_long
+  Count: 26
+  Sample: Att
+data-stat: passes_medium
+  Count: 26
+  Sample: Att
+data-stat: passes_offsides
+  Count: 26
+  Sample: Off
+data-stat: passes_pct
+  Count: 26
+  Sample: Cmp%
+data-stat: passes_pct_long
+  Count: 26
+  Sample: Cmp%
+data-stat: passes_pct_medium
+  Count: 26
+  Sample: Cmp%
+data-stat: passes_pct_short
+  Count: 26
+  Sample: Cmp%
+data-stat: passes_progressive_distance
+  Count: 26
+  Sample: PrgDist
+data-stat: passes_received
+  Count: 26
+  Sample: Rec
+data-stat: passes_short
+  Count: 26
+  Sample: Att
+data-stat: passes_switches
+  Count: 26
+  Sample: Sw
+data-stat: passes_total_distance
+  Count: 26
+  Sample: TotDist
+data-stat: pens_att
+  Count: 58
+  Sample: PKatt
+data-stat: pens_conceded
+  Count: 26
+  Sample: PKcon
+data-stat: pens_made
+  Count: 58
+  Sample: PK
+data-stat: pens_won
+  Count: 26
+  Sample: PKwon
+data-stat: player
+  Count: 258
+  Sample: Player
+data-stat: plus_minus
+  Count: 32
+  Sample: +/-
+data-stat: plus_minus_per90
+  Count: 32
+  Sample: +/-90
+data-stat: plus_minus_wowy
+  Count: 32
+  Sample: On-Off
+data-stat: points
+  Count: 4
+  Sample: Pts
+data-stat: points_avg
+  Count: 4
+  Sample: Pts/MP
+data-stat: points_per_game
+  Count: 32
+  Sample: PPM
+data-stat: position
+  Count: 258
+  Sample: Pos
+data-stat: possession
+  Count: 53
+  Sample: Poss
+data-stat: progressive_carries
+  Count: 58
+  Sample: PrgC
+data-stat: progressive_passes
+  Count: 58
+  Sample: PrgP
+data-stat: progressive_passes_received
+  Count: 58
+  Sample: PrgR
+data-stat: rank
+  Count: 8
+  Sample: Rk
+data-stat: referee
+  Count: 53
+  Sample: Referee
+data-stat: result
+  Count: 53
+  Sample: Result
+data-stat: round
+  Count: 53
+  Sample: Round
+data-stat: sca
+  Count: 26
+  Sample: SCA
+data-stat: sca_defense
+  Count: 26
+  Sample: Def
+data-stat: sca_fouled
+  Count: 26
+  Sample: Fld
+data-stat: sca_passes_dead
+  Count: 26
+  Sample: PassDead
+data-stat: sca_passes_live
+  Count: 26
+  Sample: PassLive
+data-stat: sca_per90
+  Count: 26
+  Sample: SCA90
+data-stat: sca_shots
+  Count: 26
+  Sample: Sh
+data-stat: sca_take_ons
+  Count: 26
+  Sample: TO
+data-stat: shots
+  Count: 26
+  Sample: Sh
+data-stat: shots_free_kicks
+  Count: 26
+  Sample: FK
+data-stat: shots_on_target
+  Count: 26
+  Sample: SoT
+data-stat: shots_on_target_pct
+  Count: 26
+  Sample: SoT%
+data-stat: shots_on_target_per90
+  Count: 26
+  Sample: SoT/90
+data-stat: shots_per90
+  Count: 26
+  Sample: Sh/90
+data-stat: start_time
+  Count: 53
+  Sample: Time
+data-stat: tackles
+  Count: 26
+  Sample: Tkl
+data-stat: tackles_att_3rd
+  Count: 26
+  Sample: Att 3rd
+data-stat: tackles_def_3rd
+  Count: 26
+  Sample: Def 3rd
+data-stat: tackles_interceptions
+  Count: 26
+  Sample: Tkl+Int
+data-stat: tackles_mid_3rd
+  Count: 26
+  Sample: Mid 3rd
+data-stat: tackles_won
+  Count: 52
+  Sample: TklW
+data-stat: take_ons
+  Count: 26
+  Sample: Att
+data-stat: take_ons_tackled
+  Count: 26
+  Sample: Tkld
+data-stat: take_ons_tackled_pct
+  Count: 26
+  Sample: Tkld%
+data-stat: take_ons_won
+  Count: 26
+  Sample: Succ
+data-stat: take_ons_won_pct
+  Count: 26
+  Sample: Succ%
+data-stat: team
+  Count: 8
+  Sample: Squad
+data-stat: through_balls
+  Count: 26
+  Sample: TB
+data-stat: throw_ins
+  Count: 26
+  Sample: TI
+data-stat: ties
+  Count: 4
+  Sample: D
+data-stat: top_keeper
+  Count: 4
+  Sample: Goalkeeper
+data-stat: top_team_scorers
+  Count: 4
+  Sample: Top Team Scorer
+data-stat: touches
+  Count: 26
+  Sample: Touches
+data-stat: touches_att_3rd
+  Count: 26
+  Sample: Att 3rd
+data-stat: touches_att_pen_area
+  Count: 26
+  Sample: Att Pen
+data-stat: touches_def_3rd
+  Count: 26
+  Sample: Def 3rd
+data-stat: touches_def_pen_area
+  Count: 26
+  Sample: Def Pen
+data-stat: touches_live_ball
+  Count: 26
+  Sample: Live
+data-stat: touches_mid_3rd
+  Count: 26
+  Sample: Mid 3rd
+data-stat: unused_subs
+  Count: 32
+  Sample: unSub
+data-stat: venue
+  Count: 53
+  Sample: Venue
+data-stat: wins
+  Count: 4
+  Sample: W
+data-stat: xg
+  Count: 58
+  Sample: xG
+data-stat: xg_against
+  Count: 57
+  Sample: xGA
+data-stat: xg_assist
+  Count: 58
+  Sample: xAG
+data-stat: xg_assist_net
+  Count: 26
+  Sample: A-xAG
+data-stat: xg_assist_per90
+  Count: 32
+  Sample: xAG
+data-stat: xg_diff
+  Count: 4
+  Sample: xGD
+data-stat: xg_diff_per90
+  Count: 4
+  Sample: xGD/90
+data-stat: xg_for
+  Count: 57
+  Sample: xG
+data-stat: xg_net
+  Count: 26
+  Sample: G-xG
+data-stat: xg_per90
+  Count: 32
+  Sample: xG
+data-stat: xg_plus_minus
+  Count: 32
+  Sample: xG+/-
+data-stat: xg_plus_minus_per90
+  Count: 32
+  Sample: xG+/-90
+data-stat: xg_plus_minus_wowy
+  Count: 32
+  Sample: On-Off
+data-stat: xg_xg_assist_per90
+  Count: 32
+  Sample: xG+xAG
