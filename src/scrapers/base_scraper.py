@@ -1,171 +1,110 @@
+import os
+import time
+from typing import Optional, Dict, Any
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, WebDriverException, NoSuchElementException
-from datetime import datetime
-import os
-import sys
-from pathlib import Path
+from selenium.common.exceptions import WebDriverException
+from utils import get_logger
+from debug.html_analyzer import HTMLAnalyzer
 
-# Add src directory to Python path
-src_dir = str(Path(__file__).resolve().parent.parent)
-if src_dir not in sys.path:
-    sys.path.append(src_dir)
-
-from utils import get_logger, FileManager
-
-logger = get_logger('scraper.base')
+logger = get_logger()
 
 class BaseScraper:
     def __init__(self):
-        """Initialize the base scraper with Selenium WebDriver"""
+        """Initialize the base scraper with WebDriver setup"""
         self.driver = None
-        self.file_manager = FileManager()
-        self.screenshot_dir = os.path.join(self.file_manager.get_debug_dir(), 'screenshots')
-        os.makedirs(self.screenshot_dir, exist_ok=True)
+        self.html_analyzer = HTMLAnalyzer()
         self.setup_driver()
-    
-    def setup_driver(self):
-        """Set up Chrome WebDriver with appropriate options"""
-        try:
-            logger.info("Setting up Chrome WebDriver...")
-            options = webdriver.ChromeOptions()
-            options.add_argument('--headless')
-            options.add_argument('--no-sandbox')
-            options.add_argument('--disable-dev-shm-usage')
-            options.add_argument('--disable-gpu')
-            options.add_argument('--window-size=1920x1080')
-            options.add_argument('--disable-blink-features=AutomationControlled')
-            options.add_argument('--disable-extensions')
-            options.add_argument('--start-maximized')
-            options.add_argument('--disable-infobars')
-            options.add_argument('--disable-popup-blocking')
-            
-            # Let Selenium Manager handle driver installation
-            self.driver = webdriver.Chrome(options=options)
-            logger.info("Successfully initialized Chrome WebDriver")
-        except Exception as e:
-            logger.error(f"Failed to initialize Chrome WebDriver: {e}")
-            self.take_screenshot("driver_init_error")
-            raise
-    
-    def get_page(self, url, timeout=10):
+        
+    def setup_driver(self, max_retries: int = 3):
         """
-        Get a page using Selenium with proper error handling
+        Set up Chrome WebDriver with retries
         
         Args:
-            url (str): The URL to fetch
-            timeout (int): Maximum time to wait for page load in seconds
+            max_retries: Maximum number of retry attempts
+        """
+        logger.info("Setting up Chrome WebDriver...")
+        
+        for attempt in range(max_retries):
+            try:
+                if self.driver is not None:
+                    self.cleanup()
+                
+                options = Options()
+                # options.add_argument('--headless')  # Run in headless mode
+                options.add_argument('--no-sandbox')
+                options.add_argument('--disable-dev-shm-usage')
+                options.add_argument('--disable-gpu')
+                
+                try:
+                    # Create a new Service instance
+                    service = Service()
+                    
+                    # Create the WebDriver instance
+                    self.driver = webdriver.Chrome(service=service, options=options)
+                    self.driver.set_page_load_timeout(30)  # Set page load timeout
+                    
+                    logger.info("Successfully initialized Chrome WebDriver")
+                    return
+                except WebDriverException as e:
+                    if "chromedriver" in str(e).lower():
+                        logger.error("ChromeDriver not found. Please install it using: brew install chromedriver")
+                    raise
+                
+            except WebDriverException as e:
+                if attempt < max_retries - 1:
+                    logger.warning(f"WebDriver setup attempt {attempt + 1} failed: {str(e)}. Retrying...")
+                    time.sleep(1)  # Wait before retrying
+                else:
+                    logger.error("Failed to set up WebDriver after all attempts")
+                    raise
+    
+    def get_page(self, url: str, max_retries: int = 3) -> bool:
+        """
+        Load a webpage with retry logic
+        
+        Args:
+            url: URL to load
+            max_retries: Maximum number of retry attempts
             
         Returns:
-            bool: True if page was loaded successfully, False otherwise
+            bool: True if page loaded successfully, False otherwise
         """
-        try:
-            self.driver.get(url)
-            # Wait for body to be present
-            WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located((By.TAG_NAME, "body"))
-            )
-            logger.debug(f"Successfully loaded page: {url}")
-            return True
-        except TimeoutException:
-            logger.error(f"Timeout waiting for page to load: {url}")
-            self.take_screenshot("page_load_timeout")
-            return False
-        except WebDriverException as e:
-            logger.error(f"WebDriver error accessing {url}: {e}")
-            self.take_screenshot("webdriver_error")
-            return False
-        except Exception as e:
-            logger.error(f"Unexpected error accessing {url}: {e}")
-            self.take_screenshot("unexpected_error")
-            return False
+        for attempt in range(max_retries):
+            try:
+                if self.driver is None:
+                    self.setup_driver()
+                
+                self.driver.get(url)
+                time.sleep(2)  # Wait for page to load
+                
+                # Analyze the page for debugging
+                self.html_analyzer.analyze_page(url, self.driver)
+                
+                return True
+                
+            except WebDriverException as e:
+                if attempt < max_retries - 1:
+                    logger.warning(f"Page load attempt {attempt + 1} failed: {str(e)}. Retrying...")
+                    self.setup_driver()  # Reinitialize driver
+                    time.sleep(1)  # Wait before retrying
+                else:
+                    logger.error(f"Failed to load page {url} after all attempts")
+                    return False
+                    
+        return False
     
-    def wait_for_element(self, by, value, timeout=10, take_screenshot=True):
-        """
-        Wait for an element to be present on the page
-        
-        Args:
-            by: By.ID, By.CSS_SELECTOR, etc.
-            value: The selector value
-            timeout: Maximum time to wait in seconds
-            take_screenshot: Whether to take a screenshot on failure
-            
-        Returns:
-            The element if found, None otherwise
-        """
-        try:
-            element = WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located((by, value))
-            )
-            logger.debug(f"Found element: {value}")
-            return element
-        except TimeoutException:
-            logger.error(f"Timeout waiting for element: {value}")
-            if take_screenshot:
-                self.take_screenshot(f"element_not_found_{value}")
-            return None
-        except Exception as e:
-            logger.error(f"Error waiting for element {value}: {e}")
-            if take_screenshot:
-                self.take_screenshot(f"element_error_{value}")
-            return None
-    
-    def take_screenshot(self, reason):
-        """
-        Take a screenshot of the current page state
-        
-        Args:
-            reason: The reason for taking the screenshot (used in filename)
-        """
-        if not self.driver:
-            logger.error("Cannot take screenshot - driver not initialized")
-            return
-            
-        try:
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = f"{reason}_{timestamp}.png"
-            filepath = os.path.join(self.screenshot_dir, filename)
-            
-            # Ensure the entire page is captured
-            total_height = self.driver.execute_script("return document.body.parentNode.scrollHeight")
-            self.driver.set_window_size(1920, total_height)
-            
-            self.driver.save_screenshot(filepath)
-            logger.info(f"Screenshot saved: {filepath}")
-            
-            # Reset window size
-            self.driver.set_window_size(1920, 1080)
-        except Exception as e:
-            logger.error(f"Failed to take screenshot: {e}")
-    
-    def get_page_source(self):
-        """Get the current page source with error handling"""
-        try:
-            return self.driver.page_source
-        except Exception as e:
-            logger.error(f"Failed to get page source: {e}")
-            self.take_screenshot("page_source_error")
-            return None
-    
-    def scroll_to_element(self, element):
-        """Scroll element into view with error handling"""
-        try:
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
-            # Wait a bit for any dynamic content to load
-            self.driver.implicitly_wait(1)
-        except Exception as e:
-            logger.error(f"Failed to scroll to element: {e}")
-            self.take_screenshot("scroll_error")
-    
-    def __del__(self):
-        """Clean up WebDriver when object is destroyed"""
-        if self.driver:
+    def cleanup(self):
+        """Clean up WebDriver resources"""
+        if self.driver is not None:
             try:
                 self.driver.quit()
             except Exception as e:
-                logger.error(f"Error closing WebDriver: {e}")
-                self.take_screenshot("driver_cleanup_error")
+                logger.warning(f"Error during WebDriver cleanup: {str(e)}")
+            finally:
+                self.driver = None
+    
+    def __del__(self):
+        """Ensure cleanup on object destruction"""
+        self.cleanup()

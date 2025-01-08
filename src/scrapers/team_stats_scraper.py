@@ -7,6 +7,7 @@ import json
 from datetime import datetime
 import logging
 from typing import Optional, Dict, List, Any, Union
+from bs4 import BeautifulSoup
 
 # Add src directory to Python path
 src_dir = str(Path(__file__).resolve().parent.parent)
@@ -118,216 +119,287 @@ class TeamStatsScraper(BaseScraper):
                 
             team_data = {
                 'url': team_url,
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'timestamp': datetime.now().strftime('%Y%m%d'),
                 'players': {},  # All player stats will be stored here
                 'matches': []   # Keep matches separate as it's team-level data
             }
             
+            page_source = self.driver.page_source
+            soup = BeautifulSoup(page_source, 'html.parser')
+            
             # Squad Statistics (Standard)
-            squad_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_standard_9")
+            squad_table = soup.find('table', {'id': 'stats_standard_9'})
             if squad_table:
-                squad_stats = self._extract_table_data(
-                    squad_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Create player profiles
-                for player_stats in squad_stats:
-                    if 'player' in player_stats:
-                        player_name = player_stats['player']
-                        team_data['players'][player_name] = {
-                            'name': player_name,
-                            'position': player_stats.get('position', ''),
-                            'age': player_stats.get('age', ''),
-                            'standard_stats': player_stats
-                        }
-                logger.info(f"Collected standard statistics for {len(squad_stats)} players")
+                squad_rows = squad_table.find('tbody').find_all('tr')
+                for row in squad_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    team_data['players'][player_name] = {
+                        'url': player_url,
+                        'stats': stats
+                    }
+                    
+                    logger.debug(f"Processed player: {player_name}")
             else:
                 logger.warning("Squad statistics table not found")
             
             # Match Logs
-            matches_table = self.wait_for_element(By.CSS_SELECTOR, "table#matchlogs_for")
+            matches_table = soup.find('table', {'id': 'matchlogs_for'})
             if matches_table:
-                team_data['matches'] = self._extract_table_data(
-                    matches_table,
-                    exclude_cols=['notes']
-                )
-                logger.info(f"Collected {len(team_data['matches'])} match logs")
+                match_rows = matches_table.find('tbody').find_all('tr')
+                for row in match_rows:
+                    match_data = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            match_data[stat_name] = cell.text.strip()
+                    
+                    if match_data:
+                        team_data['matches'].append(match_data)
             else:
                 logger.warning("Match logs table not found")
             
             # Goalkeeper Statistics
-            gk_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_keeper_9")
+            gk_table = soup.find('table', {'id': 'stats_keeper_9'})
             if gk_table:
-                gk_stats = self._extract_table_data(
-                    gk_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add goalkeeper stats to player profiles
-                for gk_stat in gk_stats:
-                    if 'player' in gk_stat:
-                        player_name = gk_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['goalkeeper_stats'] = gk_stat
-                logger.info("Collected goalkeeper standard statistics")
-                
-            gk_adv_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_keeper_adv_9")
-            if gk_adv_table:
-                gk_adv_stats = self._extract_table_data(
-                    gk_adv_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add advanced goalkeeper stats to player profiles
-                for gk_stat in gk_adv_stats:
-                    if 'player' in gk_stat:
-                        player_name = gk_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['goalkeeper_advanced_stats'] = gk_stat
-                logger.info("Collected goalkeeper advanced statistics")
+                gk_rows = gk_table.find('tbody').find_all('tr')
+                for row in gk_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['goalkeeper_stats'] = stats
+            else:
+                logger.warning("Goalkeeper statistics table not found")
             
             # Shooting Statistics
-            shooting_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_shooting_9")
+            shooting_table = soup.find('table', {'id': 'stats_shooting_9'})
             if shooting_table:
-                shooting_stats = self._extract_table_data(
-                    shooting_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add shooting stats to player profiles
-                for shoot_stat in shooting_stats:
-                    if 'player' in shoot_stat:
-                        player_name = shoot_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['shooting_stats'] = shoot_stat
-                logger.info("Collected shooting statistics")
+                shooting_rows = shooting_table.find('tbody').find_all('tr')
+                for row in shooting_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['shooting_stats'] = stats
+            else:
+                logger.warning("Shooting statistics table not found")
             
             # Passing Statistics
-            passing_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_passing_9")
+            passing_table = soup.find('table', {'id': 'stats_passing_9'})
             if passing_table:
-                passing_stats = self._extract_table_data(
-                    passing_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add passing stats to player profiles
-                for pass_stat in passing_stats:
-                    if 'player' in pass_stat:
-                        player_name = pass_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['passing_stats'] = pass_stat
-                logger.info("Collected passing statistics")
+                passing_rows = passing_table.find('tbody').find_all('tr')
+                for row in passing_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['passing_stats'] = stats
+            else:
+                logger.warning("Passing statistics table not found")
             
             # Pass Types
-            pass_types_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_passing_types_9")
+            pass_types_table = soup.find('table', {'id': 'stats_passing_types_9'})
             if pass_types_table:
-                pass_types_stats = self._extract_table_data(
-                    pass_types_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add pass types stats to player profiles
-                for pass_type_stat in pass_types_stats:
-                    if 'player' in pass_type_stat:
-                        player_name = pass_type_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['pass_types_stats'] = pass_type_stat
-                logger.info("Collected pass types statistics")
-                
+                pass_types_rows = pass_types_table.find('tbody').find_all('tr')
+                for row in pass_types_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['pass_types_stats'] = stats
+            else:
+                logger.warning("Pass types statistics table not found")
+            
             # Goal Creation
-            gca_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_gca_9")
+            gca_table = soup.find('table', {'id': 'stats_gca_9'})
             if gca_table:
-                gca_stats = self._extract_table_data(
-                    gca_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add goal creation stats to player profiles
-                for gca_stat in gca_stats:
-                    if 'player' in gca_stat:
-                        player_name = gca_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['goal_creation_stats'] = gca_stat
-                logger.info("Collected goal creation statistics")
-                
+                gca_rows = gca_table.find('tbody').find_all('tr')
+                for row in gca_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['goal_creation_stats'] = stats
+            else:
+                logger.warning("Goal creation statistics table not found")
+            
             # Defense
-            defense_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_defense_9")
+            defense_table = soup.find('table', {'id': 'stats_defense_9'})
             if defense_table:
-                defense_stats = self._extract_table_data(
-                    defense_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add defensive stats to player profiles
-                for def_stat in defense_stats:
-                    if 'player' in def_stat:
-                        player_name = def_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['defense_stats'] = def_stat
-                logger.info("Collected defensive statistics")
-                
+                defense_rows = defense_table.find('tbody').find_all('tr')
+                for row in defense_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['defense_stats'] = stats
+            else:
+                logger.warning("Defense statistics table not found")
+            
             # Possession
-            possession_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_possession_9")
+            possession_table = soup.find('table', {'id': 'stats_possession_9'})
             if possession_table:
-                possession_stats = self._extract_table_data(
-                    possession_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add possession stats to player profiles
-                for poss_stat in possession_stats:
-                    if 'player' in poss_stat:
-                        player_name = poss_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['possession_stats'] = poss_stat
-                logger.info("Collected possession statistics")
-                
+                possession_rows = possession_table.find('tbody').find_all('tr')
+                for row in possession_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['possession_stats'] = stats
+            else:
+                logger.warning("Possession statistics table not found")
+            
             # Playing Time
-            playing_time_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_playing_time_9")
+            playing_time_table = soup.find('table', {'id': 'stats_playing_time_9'})
             if playing_time_table:
-                playing_time_stats = self._extract_table_data(
-                    playing_time_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add playing time stats to player profiles
-                for time_stat in playing_time_stats:
-                    if 'player' in time_stat:
-                        player_name = time_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['playing_time_stats'] = time_stat
-                logger.info("Collected playing time statistics")
-                
+                playing_time_rows = playing_time_table.find('tbody').find_all('tr')
+                for row in playing_time_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['playing_time_stats'] = stats
+            else:
+                logger.warning("Playing time statistics table not found")
+            
             # Miscellaneous Stats
-            misc_table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_misc_9")
+            misc_table = soup.find('table', {'id': 'stats_misc_9'})
             if misc_table:
-                misc_stats = self._extract_table_data(
-                    misc_table,
-                    exclude_cols=['nationality']
-                )
-                
-                # Add miscellaneous stats to player profiles
-                for misc_stat in misc_stats:
-                    if 'player' in misc_stat:
-                        player_name = misc_stat['player']
-                        if player_name in team_data['players']:
-                            team_data['players'][player_name]['miscellaneous_stats'] = misc_stat
-                logger.info("Collected miscellaneous statistics")
+                misc_rows = misc_table.find('tbody').find_all('tr')
+                for row in misc_rows:
+                    player_cell = row.find('th', {'data-stat': 'player'})
+                    if not player_cell or not player_cell.find('a'):
+                        continue
+                    
+                    player_name = player_cell.find('a').text.strip()
+                    player_url = f"https://fbref.com{player_cell.find('a')['href']}"
+                    
+                    # Get all stats for the player
+                    stats = {}
+                    for cell in row.find_all(['td', 'th']):
+                        stat_name = cell.get('data-stat')
+                        if stat_name:
+                            stats[stat_name] = cell.text.strip()
+                    
+                    if player_name in team_data['players']:
+                        team_data['players'][player_name]['miscellaneous_stats'] = stats
+            else:
+                logger.warning("Miscellaneous statistics table not found")
             
             # After collecting all stats
             player_count = len(team_data['players'])
             logger.info(f"Successfully collected data for {player_count} players")
             
-            # Save the data
-            team_id = team_url.split('/')[-2]
-            filename = f"{team_id}_stats_{datetime.now().strftime('%Y%m%d')}.json"
+            # # Save the data
+            # team_id = team_url.split('/')[-2]
+            # filename = f"{team_id}_stats_{datetime.now().strftime('%Y%m%d')}.json"
             
-            try:
-                self.file_manager.save_team_data(team_data, filename)
-                logger.info(f"Saved team statistics to {filename}")
-            except Exception as e:
-                logger.error(f"Error saving team data: {str(e)}", exc_info=True)
+            # try:
+            #     self.file_manager.save_team_data(team_data, filename)
+            #     logger.info(f"Saved team statistics to {filename}")
+            # except Exception as e:
+            #     logger.error(f"Error saving team data: {str(e)}", exc_info=True)
             
             return team_data
             

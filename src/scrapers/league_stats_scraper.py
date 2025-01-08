@@ -3,6 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import sys
 from pathlib import Path
+from typing import Optional, List, Dict, Any, Union
+from bs4 import BeautifulSoup
 
 # Add src directory to Python path
 src_dir = str(Path(__file__).resolve().parent.parent)
@@ -20,75 +22,71 @@ class LeagueStatsScraper(BaseScraper):
         super().__init__()
         self.base_url = "https://fbref.com/en/comps/9/Premier-League-Stats"
         
-    def get_league_standings(self):
+    def get_league_standings(self) -> Optional[List[Dict[str, str]]]:
         """
         Get Premier League standings
         
         Returns:
-            list: List of dictionaries containing team standings
+            list: List of dictionaries containing team standings, or None if error occurs
         """
         logger.info("Fetching Premier League standings...")
         
-        if not self.get_page(self.base_url):
-            logger.error("Failed to load Premier League standings page")
-            return None
-            
         try:
-            standings = []
-            table = self.wait_for_element(By.CSS_SELECTOR, "table#results2024-202591_overall")
+            if not self.get_page(self.base_url):
+                logger.error("Failed to load Premier League standings page")
+                return None
             
-            if not table:
+            page_source = self.driver.page_source
+            soup = BeautifulSoup(page_source, 'html.parser')
+            
+            # Find the standings table
+            standings_table = soup.find('table', {'id': 'results2024-202591_overall'})
+            if not standings_table:
                 logger.error("Could not find standings table")
                 return None
-                
-            rows = table.find_elements(By.CSS_SELECTOR, "tbody tr:not(.spacer):not(.thead)")
             
-            for row in rows:
-                try:
-                    rank = row.find_element(By.CSS_SELECTOR, "th[data-stat='rank']").text.strip()
-                    team = row.find_element(By.CSS_SELECTOR, "td[data-stat='team']").text.strip()
-                    points = row.find_element(By.CSS_SELECTOR, "td[data-stat='points']").text.strip()
-                    wins = row.find_element(By.CSS_SELECTOR, "td[data-stat='wins']").text.strip()
-                    draws = row.find_element(By.CSS_SELECTOR, "td[data-stat='ties']").text.strip()
-                    losses = row.find_element(By.CSS_SELECTOR, "td[data-stat='losses']").text.strip()
-                    goals_for = row.find_element(By.CSS_SELECTOR, "td[data-stat='goals_for']").text.strip()
-                    goals_against = row.find_element(By.CSS_SELECTOR, "td[data-stat='goals_against']").text.strip()
-                    goal_diff = row.find_element(By.CSS_SELECTOR, "td[data-stat='goal_diff']").text.strip()
+            standings = []
+            team_rows = standings_table.find('tbody').find_all('tr')
+            
+            for row in team_rows:
+                team_data = {}
+                
+                # Get all cells in the row
+                for cell in row.find_all(['td', 'th']):
+                    stat_name = cell.get('data-stat')
+                    if stat_name:
+                        team_data[stat_name] = cell.text.strip()
+                
+                if team_data:
+                    # Add rank if not present
+                    if 'rank' not in team_data and len(standings) + 1 <= 20:
+                        team_data['rank'] = str(len(standings) + 1)
                     
-                    standings.append({
-                        'rank': int(rank),
-                        'team': team,
-                        'points': int(points),
-                        'wins': int(wins),
-                        'draws': int(draws),
-                        'losses': int(losses),
-                        'goals_for': int(goals_for),
-                        'goals_against': int(goals_against),
-                        'goal_diff': int(goal_diff)
-                    })
-                    logger.info(f"Found standings for {team}")
-                except NoSuchElementException:
-                    logger.warning("Skipping row with missing data")
-                    continue
-                except ValueError as e:
-                    logger.error(f"Error converting data: {e}")
-                    continue
-                except Exception as e:
-                    logger.error(f"Error processing standings row: {e}")
-                    continue
+                    # Clean up stats
+                    team_data['team'] = team_data.get('team', 'Unknown')
+                    team_data['points'] = team_data.get('points', '0')
+                    team_data['wins'] = team_data.get('wins', '0')
+                    team_data['draws'] = team_data.get('ties', '0')  # FBRef uses 'ties' for draws
+                    team_data['losses'] = team_data.get('losses', '0')
+                    team_data['goals_for'] = team_data.get('goals_for', '0')
+                    team_data['goals_against'] = team_data.get('goals_against', '0')
+                    team_data['goal_diff'] = team_data.get('goal_diff', '0')
+                    
+                    standings.append(team_data)
+                    logger.info(f"Found team: {team_data['team']} - {team_data['points']} pts")
             
-            if not standings:
-                logger.error("No standings data found")
+            if standings:
+                logger.info(f"Successfully found {len(standings)} teams in standings")
+                return standings
             else:
-                logger.info(f"Successfully found standings for {len(standings)} teams")
+                logger.error("No teams found in standings")
+                return None
                 
-            return standings
-            
         except Exception as e:
-            logger.error(f"Error fetching standings: {e}")
+            logger.error(f"Error fetching league standings: {str(e)}")
             return None
-                
-    def get_team_stats(self):
+        
+    def get_team_stats(self) -> Optional[List[Dict[str, Union[str, float, int]]]]:
         """
         Get team statistics
         
@@ -97,58 +95,64 @@ class LeagueStatsScraper(BaseScraper):
         """
         logger.info("Fetching team statistics...")
         
-        if not self.get_page(self.base_url):
-            logger.error("Failed to load team statistics page")
-            return None
-            
         try:
-            stats = []
-            table = self.wait_for_element(By.CSS_SELECTOR, "table#stats_squads_standard_for")
+            if not self.get_page(self.base_url):
+                logger.error("Failed to load team statistics page")
+                return None
             
-            if not table:
+            page_source = self.driver.page_source
+            soup = BeautifulSoup(page_source, 'html.parser')
+            
+            # Find the statistics table
+            stats_table = soup.find('table', {'id': 'stats_squads_standard_for'})
+            if not stats_table:
                 logger.error("Could not find statistics table")
                 return None
-                
-            rows = table.find_elements(By.CSS_SELECTOR, "tbody tr:not(.spacer):not(.thead)")
             
-            for row in rows:
-                try:
-                    team = row.find_element(By.CSS_SELECTOR, "th[data-stat='team']").text.strip()
-                    possession = row.find_element(By.CSS_SELECTOR, "td[data-stat='possession']").text.strip()
-                    goals = row.find_element(By.CSS_SELECTOR, "td[data-stat='goals']").text.strip()
-                    assists = row.find_element(By.CSS_SELECTOR, "td[data-stat='assists']").text.strip()
-                    xg = row.find_element(By.CSS_SELECTOR, "td[data-stat='xg']").text.strip()
-                    xg_assist = row.find_element(By.CSS_SELECTOR, "td[data-stat='xg_assist']").text.strip()
+            stats = []
+            team_rows = stats_table.find('tbody').find_all('tr')
+            
+            for row in team_rows:
+                team_data = {}
+                
+                # Get all cells in the row
+                for cell in row.find_all(['td', 'th']):
+                    stat_name = cell.get('data-stat')
+                    if stat_name:
+                        team_data[stat_name] = cell.text.strip()
+                
+                if team_data:
+                    # Clean up stats
+                    team_data['team'] = team_data.get('team', 'Unknown')
+                    team_data['possession'] = team_data.get('possession', '0')
+                    team_data['goals'] = team_data.get('goals', '0')
+                    team_data['assists'] = team_data.get('assists', '0')
+                    team_data['xg'] = team_data.get('xg', '0')
+                    team_data['xg_assist'] = team_data.get('xg_assist', '0')
                     
-                    stats.append({
-                        'team': team,
-                        'possession': float(possession) if possession else 0,
-                        'goals': int(goals) if goals else 0,
-                        'assists': int(assists) if assists else 0,
-                        'xg': float(xg) if xg else 0,
-                        'xg_assist': float(xg_assist) if xg_assist else 0
-                    })
-                    logger.info(f"Found statistics for {team}")
-                except NoSuchElementException:
-                    logger.warning("Skipping row with missing statistics")
-                    continue
-                except ValueError as e:
-                    logger.error(f"Error converting statistics: {e}")
-                    continue
-                except Exception as e:
-                    logger.error(f"Error processing statistics row: {e}")
-                    continue
+                    # Convert stats to float or int if possible
+                    for stat, value in team_data.items():
+                        if stat != 'team':
+                            try:
+                                team_data[stat] = float(value) if '.' in value else int(value)
+                            except ValueError:
+                                pass
+                    
+                    stats.append(team_data)
+                    logger.info(f"Found team statistics for {team_data['team']}")
             
-            if not stats:
-                logger.error("No team statistics found")
-            else:
+            if stats:
                 logger.info(f"Successfully found statistics for {len(stats)} teams")
+                return stats
+            else:
+                logger.error("No team statistics found")
+                return None
                 
-            return stats
-            
         except Exception as e:
-            logger.error(f"Error fetching team statistics: {e}")
+            logger.error(f"Error fetching team statistics: {str(e)}")
             return None
+        finally:
+            self.cleanup()
             
     def __del__(self):
         """Clean up WebDriver when object is destroyed"""
@@ -156,4 +160,4 @@ class LeagueStatsScraper(BaseScraper):
             try:
                 self.driver.quit()
             except Exception as e:
-                logger.error(f"Error closing WebDriver: {e}")
+                logger.error(f"Error closing WebDriver: {str(e)}")

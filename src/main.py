@@ -19,12 +19,13 @@ from utils import get_logger
 from utils.file_manager import FileManager
 from debug.html_analyzer import HTMLAnalyzer
 
-def get_team_detailed_stats(team_url: str, team_scraper: TeamStatsScraper, logger) -> Optional[Dict[str, Any]]:
+def get_team_detailed_stats(team_url: str, team_name: str, team_scraper: TeamStatsScraper, logger) -> Optional[Dict[str, Any]]:
     """
     Get detailed statistics for a specific team
     
     Args:
         team_url: URL of the team's page
+        team_name: Name of the team
         team_scraper: TeamStatsScraper instance
         logger: Logger instance
         
@@ -32,7 +33,7 @@ def get_team_detailed_stats(team_url: str, team_scraper: TeamStatsScraper, logge
         Dictionary containing team statistics or None if error occurs
     """
     try:
-        logger.info(f"\nFetching detailed statistics for team: {team_url}")
+        logger.info(f"\nFetching detailed statistics for team: {team_name}")
         stats = team_scraper.get_team_stats(team_url)
         
         if stats:
@@ -55,6 +56,34 @@ def get_team_detailed_stats(team_url: str, team_scraper: TeamStatsScraper, logge
     except Exception as e:
         logger.error(f"Error fetching detailed team statistics: {str(e)}", exc_info=True)
         return None
+
+def save_data_with_retry(file_manager: FileManager, data: Dict[str, Any], filename: str, category: str, max_retries: int = 3) -> bool:
+    """
+    Save data with retry logic
+    
+    Args:
+        file_manager: FileManager instance
+        data: Data to save
+        filename: Name of the file
+        category: Category of data
+        max_retries: Maximum number of retries
+        
+    Returns:
+        bool: True if save was successful, False otherwise
+    """
+    for attempt in range(max_retries):
+        try:
+            result = file_manager.save_data(data, filename, category)
+            if result:
+                return True
+            if attempt < max_retries - 1:
+                logger.warning(f"Retrying save attempt {attempt + 1} of {max_retries}")
+        except Exception as e:
+            if attempt < max_retries - 1:
+                logger.warning(f"Save attempt {attempt + 1} failed: {str(e)}. Retrying...")
+            else:
+                logger.error(f"All save attempts failed for {filename}")
+    return False
 
 def main():
     """Main function to run the football analysis application"""
@@ -80,19 +109,28 @@ def main():
                 
             # Save teams data
             timestamp = datetime.now().strftime('%Y%m%d')
-            file_manager.save_json(teams, f'teams_{timestamp}.json', 'teams')
-            logger.info("Teams data saved successfully")
+            if save_data_with_retry(file_manager, teams, f'teams_{timestamp}.json', 'teams'):
+                logger.info("Teams data saved successfully")
+            else:
+                logger.error("Failed to save teams data")
             
-            # Get detailed stats for Liverpool (as an example)
+            # Get detailed stats for Liverpool
             liverpool_team = next((team for team in teams if 'Liverpool' in team['name']), None)
             if liverpool_team:
                 liverpool_stats = get_team_detailed_stats(
                     liverpool_team['url'],
+                    liverpool_team['name'],
                     team_stats_scraper,
                     logger
                 )
                 if liverpool_stats:
-                    logger.info("Liverpool detailed statistics saved successfully")
+                    # Save Liverpool stats with consistent naming
+                    team_id = liverpool_team['url'].split('/')[-2]  # Get team ID from URL
+                    filename = f"{team_id}_{timestamp}.json"  # Use team ID for filename
+                    if save_data_with_retry(file_manager, liverpool_stats, filename, 'teams'):
+                        logger.info(f"{liverpool_team['name']} detailed statistics saved successfully")
+                    else:
+                        logger.error(f"Failed to save {liverpool_team['name']} statistics")
         else:
             logger.error("No teams were found")
             return
@@ -107,28 +145,18 @@ def main():
                           f"(W: {team['wins']}, D: {team['draws']}, L: {team['losses']})")
                           
             # Save standings data
-            file_manager.save_json(standings, f'standings_{timestamp}.json', 'standings')
-            logger.info("Standings data saved successfully")
+            if save_data_with_retry(file_manager, standings, f'standings_{timestamp}.json', 'standings'):
+                logger.info("Standings data saved successfully")
+            else:
+                logger.error("Failed to save standings data")
         
-        # Get team statistics
-        logger.info("\nFetching team statistics...")
-        stats = league_scraper.get_team_stats()
-        if stats:
-            logger.info("\nTeam Statistics:")
-            for team in stats:
-                logger.info(f"{team['team']} - Goals: {team.get('goals', 'N/A')}, "
-                          f"Shots: {team.get('shots', 'N/A')}, "
-                          f"Possession: {team.get('possession', 'N/A')}%")
-                          
-            # Save statistics data
-            file_manager.save_json(stats, f'stats_{timestamp}.json', 'stats')
-            logger.info("Team statistics saved successfully")
-            
     except Exception as e:
         logger.error(f"Error in main execution: {str(e)}", exc_info=True)
         
     finally:
         # Clean up resources
+        teams_scraper.cleanup()
+        league_scraper.cleanup()
         team_stats_scraper.cleanup()
         logger.info("Application execution completed")
 

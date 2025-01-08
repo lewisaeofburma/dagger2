@@ -3,9 +3,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import sys
-import os
 from pathlib import Path
 from datetime import datetime
+from typing import Optional, List, Dict, Any
 
 # Add src directory to Python path
 src_dir = str(Path(__file__).resolve().parent.parent)
@@ -22,114 +22,63 @@ class FBRefScraper(BaseScraper):
         """Initialize the FBRef scraper"""
         super().__init__()
         self.base_url = "https://fbref.com/en/comps/9/Premier-League-Stats"
-        self.debug_dir = os.path.join(str(Path(__file__).resolve().parent.parent.parent), 'debug')
-        os.makedirs(self.debug_dir, exist_ok=True)
         
-    def analyze_page_structure(self):
-        """Analyze the page structure and save it for debugging"""
-        try:
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            debug_file = os.path.join(self.debug_dir, f'page_analysis_{timestamp}.txt')
-            
-            # Get page source and parse with BeautifulSoup
-            page_source = self.get_page_source()
-            if not page_source:
-                return None
-                
-            soup = BeautifulSoup(page_source, 'html.parser')
-            
-            # Save analysis to file
-            with open(debug_file, 'w', encoding='utf-8') as f:
-                f.write(f"URL: {self.base_url}\n")
-                f.write(f"Timestamp: {timestamp}\n\n")
-                
-                # Find all tables
-                f.write("=== TABLE IDs ===\n")
-                tables = soup.find_all('table')
-                for table in tables:
-                    table_id = table.get('id', 'No ID')
-                    f.write(f"Table ID: {table_id}\n")
-                    
-                    # Get header information
-                    headers = table.find_all('th')
-                    if headers:
-                        f.write("Data attributes in headers:\n")
-                        for header in headers:
-                            data_stat = header.get('data-stat', 'No data-stat')
-                            f.write(f"  - {data_stat}\n")
-                    f.write("\n")
-                
-            logger.info(f"Page analysis saved to: {debug_file}")
-            return debug_file
-            
-        except Exception as e:
-            logger.error(f"Error analyzing page: {e}")
-            return None
-        
-    def get_premier_league_teams(self):
+    def get_premier_league_teams(self) -> Optional[List[Dict[str, str]]]:
         """
         Fetch Premier League teams from FBRef
         
         Returns:
             list: List of dictionaries containing team information
         """
-        logger.info("Fetching Premier League teams...")
         logger.info(f"Fetching Premier League teams from: {self.base_url}")
         
-        if not self.get_page(self.base_url):
-            logger.error("Failed to load Premier League stats page")
-            return None
-            
         try:
-            # First analyze the page structure
-            debug_file = self.analyze_page_structure()
-            if debug_file:
-                logger.info(f"Page structure analysis saved to: {debug_file}")
+            if not self.get_page(self.base_url):
+                logger.error("Failed to load Premier League stats page")
+                return None
             
-            teams = []
-            # Try to find the standings table
-            table = self.wait_for_element(By.CSS_SELECTOR, "table#results2024-202591_overall")
+            page_source = self.driver.page_source
+            soup = BeautifulSoup(page_source, 'html.parser')
             
-            if not table:
+            # Find the table containing team data
+            teams_table = soup.find('table', {'id': 'results2024-202591_overall'})
+            if not teams_table:
                 logger.error("Could not find teams table")
                 return None
-                
-            rows = table.find_elements(By.CSS_SELECTOR, "tbody tr:not(.spacer):not(.thead)")
             
-            for row in rows:
-                try:
-                    # Try different selectors for team name
-                    team_cell = row.find_element(By.CSS_SELECTOR, "td[data-stat='team'] a")
-                    
-                    team_name = team_cell.text.strip()
-                    team_url = team_cell.get_attribute("href")
-                    
-                    if team_name and team_url:
+            teams = []
+            team_rows = teams_table.find('tbody')
+            if not team_rows:
+                logger.error("Could not find table body")
+                return None
+            
+            team_rows = team_rows.find_all('tr')
+            
+            for row in team_rows:
+                team_cell = row.find('td', {'data-stat': 'team'})
+                if team_cell:
+                    team_link = team_cell.find('a')
+                    if team_link:
+                        team_name = team_link.text.strip()
+                        team_url = f"https://fbref.com{team_link['href']}"
                         teams.append({
-                            "name": team_name,
-                            "url": team_url
+                            'name': team_name,
+                            'url': team_url
                         })
                         logger.info(f"Found team: {team_name}")
-                except NoSuchElementException:
-                    logger.warning("Skipping row with missing team data")
-                    continue
-                except Exception as e:
-                    logger.error(f"Error processing team row: {e}")
-                    continue
             
-            if not teams:
-                logger.error("No teams were found")
-            else:
+            if teams:
                 logger.info(f"Successfully found {len(teams)} teams")
+                return teams
+            else:
+                logger.error("No teams found in the table")
+                return None
                 
-            return teams
-            
         except Exception as e:
-            logger.error(f"Error fetching Premier League teams: {e}")
+            logger.error(f"Error fetching Premier League teams: {str(e)}")
             return None
         finally:
-            if self.driver:
-                self.driver.quit()
+            self.cleanup()
 
 if __name__ == "__main__":
     scraper = FBRefScraper()

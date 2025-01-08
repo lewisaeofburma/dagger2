@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import logging
 from pathlib import Path
+from typing import Optional, Dict, Any
+from selenium.webdriver.remote.webdriver import WebDriver
 
 # Set up logging
 def setup_logging():
@@ -26,55 +28,71 @@ def setup_logging():
 logger = setup_logging()
 
 class HTMLAnalyzer:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(HTMLAnalyzer, cls).__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+    
     def __init__(self):
-        """Initialize the HTML Analyzer"""
+        """Initialize the HTML Analyzer (singleton)"""
+        if self._initialized:
+            return
+            
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
-        self.debug_dir = self._create_debug_directory()
+        self.output_dir = Path(__file__).resolve().parent / 'output'
+        self.output_dir.mkdir(exist_ok=True)
+        
+        self.screenshot_dir = self.output_dir / 'screenshots'
+        self.screenshot_dir.mkdir(exist_ok=True)
+        
         logger.info("HTML Analyzer initialized")
+        self._initialized = True
 
-    def _create_debug_directory(self):
-        """Create debug directory if it doesn't exist"""
-        debug_dir = Path(__file__).resolve().parent / 'output'
-        debug_dir.mkdir(exist_ok=True)
-        logger.debug(f"Debug directory created/verified: {debug_dir}")
-        return debug_dir
-
-    def analyze_page(self, url, save_html=False):
+    def analyze_page(self, url: str, driver: Optional[WebDriver] = None, save_html: bool = False) -> Optional[str]:
         """
         Analyze a webpage and save relevant information for debugging
         
         Args:
-            url (str): URL to analyze
-            save_html (bool): Whether to save the raw HTML content
+            url: URL to analyze
+            driver: Optional WebDriver instance for dynamic content
+            save_html: Whether to save the raw HTML content
             
         Returns:
             str: Path to the debug file
         """
         try:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            debug_file = self.debug_dir / f'page_analysis_{timestamp}.txt'
+            debug_file = self.output_dir / f'page_analysis_{timestamp}.txt'
             
             logger.info(f"Analyzing page: {url}")
-            response = requests.get(url, headers=self.headers, timeout=30)
-            response.raise_for_status()
+            
+            # Get page content
+            if driver:
+                page_source = driver.page_source
+            else:
+                response = requests.get(url, headers=self.headers, timeout=30)
+                response.raise_for_status()
+                page_source = response.text
             
             # Save raw HTML if requested
             if save_html:
-                html_file = self.debug_dir / f'raw_html_{timestamp}.html'
-                html_file.write_text(response.text, encoding='utf-8')
+                html_file = self.output_dir / f'raw_html_{timestamp}.html'
+                html_file.write_text(page_source, encoding='utf-8')
                 logger.info(f"Raw HTML saved to: {html_file}")
 
-            soup = BeautifulSoup(response.content, 'html.parser')
+            soup = BeautifulSoup(page_source, 'html.parser')
             
             with open(debug_file, 'w', encoding='utf-8') as f:
                 # Basic Information
                 f.write(f"=== PAGE ANALYSIS ===\n")
                 f.write(f"URL: {url}\n")
                 f.write(f"Timestamp: {timestamp}\n")
-                f.write(f"Status Code: {response.status_code}\n")
-                f.write(f"Content Type: {response.headers.get('content-type', 'N/A')}\n\n")
+                f.write(f"Content Type: {response.headers.get('content-type', 'N/A') if not driver else 'From WebDriver'}\n\n")
 
                 # Page Title and Meta
                 f.write("=== PAGE METADATA ===\n")
@@ -136,20 +154,52 @@ class HTMLAnalyzer:
             logger.error(f"Error analyzing page: {str(e)}", exc_info=True)
             return None
 
-    def cleanup_debug_files(self, max_files=5):
+    def take_screenshot(self, driver: WebDriver, reason: str) -> Optional[str]:
+        """
+        Take a screenshot of the current page state
+        
+        Args:
+            driver: WebDriver instance
+            reason: Reason for taking the screenshot (used in filename)
+            
+        Returns:
+            str: Path to the screenshot file
+        """
+        try:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f"{reason}_{timestamp}.png"
+            filepath = self.screenshot_dir / filename
+            
+            # Ensure the entire page is captured
+            total_height = driver.execute_script("return document.body.parentNode.scrollHeight")
+            driver.set_window_size(1920, total_height)
+            
+            driver.save_screenshot(str(filepath))
+            logger.info(f"Screenshot saved: {filepath}")
+            
+            # Reset window size
+            driver.set_window_size(1920, 1080)
+            return str(filepath)
+            
+        except Exception as e:
+            logger.error(f"Failed to take screenshot: {str(e)}", exc_info=True)
+            return None
+
+    def cleanup_files(self, max_files: int = 5) -> None:
         """
         Clean up debug files, keeping only the specified number of most recent files
         
         Args:
-            max_files (int): Maximum number of files to keep
+            max_files: Maximum number of files to keep
         """
         try:
             # Get all analysis and HTML files
-            analysis_files = list(self.debug_dir.glob('page_analysis_*.txt'))
-            html_files = list(self.debug_dir.glob('raw_html_*.html'))
+            analysis_files = list(self.output_dir.glob('page_analysis_*.txt'))
+            html_files = list(self.output_dir.glob('raw_html_*.html'))
+            screenshot_files = list(self.screenshot_dir.glob('*.png'))
             
             # Sort files by modification time
-            for files in [analysis_files, html_files]:
+            for files in [analysis_files, html_files, screenshot_files]:
                 files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
                 
                 # Remove old files
@@ -171,4 +221,4 @@ if __name__ == "__main__":
     
     if debug_file:
         print(f"Analysis saved to: {debug_file}")
-        analyzer.cleanup_debug_files()
+        analyzer.cleanup_files()
