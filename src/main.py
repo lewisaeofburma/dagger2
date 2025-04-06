@@ -1,164 +1,131 @@
+"""
+Main module for the football analysis application.
+Uses the improved architecture with services, configuration, and better error handling.
+"""
+from src.config import get_config
+from src.services import TeamService, TeamStatsService, LeagueService
+from src.utils import get_logger
+from src.utils.webdriver_pool import get_webdriver_pool
 import sys
+import argparse
+import logging
 from pathlib import Path
-from datetime import datetime
 from typing import Dict, List, Any, Optional
 
-# Add src directory to Python path
-src_dir = str(Path(__file__).resolve().parent)
-if src_dir not in sys.path:
-    sys.path.append(src_dir)
+# Add project root to Python path to enable relative imports
+import os
+import sys
+from pathlib import Path
 
-# Add project root to Python path for debug module
+# Get the project root directory
 project_root = str(Path(__file__).resolve().parent.parent)
+
+# Add to Python path if not already there
 if project_root not in sys.path:
-    sys.path.append(project_root)
+    sys.path.insert(0, project_root)
 
-from scrapers import FBRefScraper, LeagueStatsScraper
-from scrapers.team_stats_scraper import TeamStatsScraper
-from utils import get_logger
-from utils.file_manager import FileManager
-from debug.html_analyzer import HTMLAnalyzer
 
-def get_team_detailed_stats(team_url: str, team_name: str, team_scraper: TeamStatsScraper, logger) -> Optional[Dict[str, Any]]:
-    """
-    Get detailed statistics for a specific team
-    
-    Args:
-        team_url: URL of the team's page
-        team_name: Name of the team
-        team_scraper: TeamStatsScraper instance
-        logger: Logger instance
-        
-    Returns:
-        Dictionary containing team statistics or None if error occurs
-    """
-    try:
-        logger.info(f"\nFetching detailed statistics for team: {team_name}")
-        stats = team_scraper.get_team_stats(team_url)
-        
-        if stats:
-            logger.info("Team Statistics Summary:")
-            logger.info(f"Squad Players: {len(stats['players'])}")
-            logger.info(f"Matches: {len(stats['matches'])}")
-            
-            # Count players by position
-            positions = {}
-            for player in stats['players'].values():
-                pos = player.get('position', 'Unknown')
-                positions[pos] = positions.get(pos, 0) + 1
-                
-            logger.info("\nPlayers by Position:")
-            for pos, count in sorted(positions.items()):
-                logger.info(f"{pos}: {count}")
-                
-        return stats
-        
-    except Exception as e:
-        logger.error(f"Error fetching detailed team statistics: {str(e)}", exc_info=True)
-        return None
+def parse_arguments():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description='Football Analysis Application')
+    parser.add_argument('--team', type=str,
+                        help='Team to analyze (default: all teams)')
+    parser.add_argument('--standings', action='store_true',
+                        help='Fetch league standings')
+    parser.add_argument('--debug', action='store_true',
+                        help='Enable debug mode')
+    parser.add_argument('--headless', action='store_true',
+                        help='Run in headless mode')
+    return parser.parse_args()
 
-def save_data_with_retry(file_manager: FileManager, data: Dict[str, Any], filename: str, category: str, max_retries: int = 3) -> bool:
-    """
-    Save data with retry logic
-    
-    Args:
-        file_manager: FileManager instance
-        data: Data to save
-        filename: Name of the file
-        category: Category of data
-        max_retries: Maximum number of retries
-        
-    Returns:
-        bool: True if save was successful, False otherwise
-    """
-    for attempt in range(max_retries):
-        try:
-            result = file_manager.save_data(data, filename, category)
-            if result:
-                return True
-            if attempt < max_retries - 1:
-                logger.warning(f"Retrying save attempt {attempt + 1} of {max_retries}")
-        except Exception as e:
-            if attempt < max_retries - 1:
-                logger.warning(f"Save attempt {attempt + 1} failed: {str(e)}. Retrying...")
-            else:
-                logger.error(f"All save attempts failed for {filename}")
-    return False
 
 def main():
-    """Main function to run the football analysis application"""
+    """Main function to run the football analysis application."""
+    # Parse command line arguments
+    args = parse_arguments()
+
+    # Configure logging
     logger = get_logger('main')
     logger.info("Starting football analysis application")
-    
-    # Initialize components
-    teams_scraper = FBRefScraper()
-    league_scraper = LeagueStatsScraper()
-    team_stats_scraper = TeamStatsScraper()
-    file_manager = FileManager()
-    html_analyzer = HTMLAnalyzer()  # For debugging purposes
-    
+
+    # Get configuration
+    config = get_config()
+
+    # Update configuration based on command line arguments
+    if args.debug:
+        config.set('debug_enabled', True)
+
+    if args.headless:
+        webdriver_settings = config.get('webdriver_settings', {})
+        webdriver_settings['headless'] = True
+        config.set('webdriver_settings', webdriver_settings)
+
+    # Initialize services
+    team_service = TeamService()
+    team_stats_service = TeamStatsService()
+    league_service = LeagueService()
+
     try:
         # Get Premier League teams
         logger.info("Fetching Premier League teams...")
-        teams = teams_scraper.get_premier_league_teams()
-        
-        if teams:
-            logger.info("\nPremier League Teams:")
-            for team in teams:
-                logger.info(f"- {team['name']}")
-                
-            # Save teams data
-            timestamp = datetime.now().strftime('%Y%m%d')
-            if save_data_with_retry(file_manager, teams, f'teams_{timestamp}.json', 'teams'):
-                logger.info("Teams data saved successfully")
-            else:
-                logger.error("Failed to save teams data")
-            
-            # Get detailed stats for Liverpool
-            liverpool_team = next((team for team in teams if 'Liverpool' in team['name']), None)
-            if liverpool_team:
-                liverpool_stats = get_team_detailed_stats(
-                    liverpool_team['url'],
-                    liverpool_team['name'],
-                    team_stats_scraper,
-                    logger
-                )
-                if liverpool_stats:
-                    # Save Liverpool stats with consistent naming
-                    team_id = liverpool_team['url'].split('/')[-2]  # Get team ID from URL
-                    filename = f"{team_id}_{timestamp}.json"  # Use team ID for filename
-                    if save_data_with_retry(file_manager, liverpool_stats, filename, 'teams'):
-                        logger.info(f"{liverpool_team['name']} detailed statistics saved successfully")
-                    else:
-                        logger.error(f"Failed to save {liverpool_team['name']} statistics")
-        else:
+        teams = team_service.get_premier_league_teams()
+
+        if not teams:
             logger.error("No teams were found")
             return
-        
-        # Get Premier League standings
-        logger.info("\nFetching Premier League standings...")
-        standings = league_scraper.get_league_standings()
-        if standings:
-            logger.info("\nPremier League Standings:")
-            for team in standings:
-                logger.info(f"{team['rank']}. {team['team']} - {team['points']} pts "
-                          f"(W: {team['wins']}, D: {team['draws']}, L: {team['losses']})")
-                          
-            # Save standings data
-            if save_data_with_retry(file_manager, standings, f'standings_{timestamp}.json', 'standings'):
-                logger.info("Standings data saved successfully")
+
+        logger.info("\nPremier League Teams:")
+        for team in teams:
+            logger.info(f"- {team['name']}")
+
+        # Get team statistics
+        if args.team:
+            # Get statistics for a specific team
+            team_name = args.team
+            logger.info(
+                f"\nFetching detailed statistics for team: {team_name}")
+            team_stats = team_service.get_team_detailed_stats(team_name)
+
+            if not team_stats:
+                logger.error(f"Failed to get statistics for {team_name}")
+        else:
+            # Get statistics for all teams or teams specified in config
+            teams_to_analyze = config.get('teams_to_analyze', [])
+
+            if teams_to_analyze:
+                logger.info(
+                    f"\nFetching detailed statistics for specified teams: {', '.join(teams_to_analyze)}")
             else:
-                logger.error("Failed to save standings data")
-        
+                logger.info("\nFetching detailed statistics for all teams")
+
+            team_stats = team_service.get_all_teams_detailed_stats(teams)
+
+            if not team_stats:
+                logger.error("Failed to get team statistics")
+
+        # Get league standings if requested
+        if args.standings or not args.team:
+            logger.info("\nFetching Premier League standings...")
+            standings = league_service.get_league_standings()
+
+            if standings:
+                logger.info("\nPremier League Standings:")
+                for team in standings:
+                    logger.info(f"{team['rank']}. {team['team']} - {team['points']} pts "
+                                f"(W: {team['wins']}, D: {team['draws']}, L: {team['losses']})")
+            else:
+                logger.error("Failed to get league standings")
+
     except Exception as e:
         logger.error(f"Error in main execution: {str(e)}", exc_info=True)
-        
+
     finally:
         # Clean up resources
-        teams_scraper.cleanup()
-        league_scraper.cleanup()
-        team_stats_scraper.cleanup()
+        webdriver_pool = get_webdriver_pool()
+        webdriver_pool.close_all()
         logger.info("Application execution completed")
+
 
 if __name__ == "__main__":
     main()
